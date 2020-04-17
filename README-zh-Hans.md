@@ -49,7 +49,7 @@ List<string> result = sniffer.Match(head);
 **项目遵守: [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/)**  
 
 ### 贡献者
-<img src="https://thinkershare.com/storage/project/signature/contributors.svg" />
+<img height="60" src="https://thinkershare.com/storage/project/signature/contributors.png" />
 
 ## 使用许可
 [MIT](LICENSE) © thinkershare
