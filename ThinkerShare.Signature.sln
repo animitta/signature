@@ -11,6 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThinkerShare.Signature", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThinkerShare.Signature.Test", "test\ThinkerShare.Signature.Test\ThinkerShare.Signature.Test.csproj", "{C52C771F-033E-4863-9197-6213F598732F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inf", "inf", "{00503A31-AFF0-4614-8617-8B16F6AD12C8}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		contributing.md = contributing.md
+		LICENSE = LICENSE
+		README-zh-Hans.md = README-zh-Hans.md
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
