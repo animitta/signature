@@ -39,8 +39,8 @@ List<string> result = sniffer.Match(head);
 [![Signature](https://img.shields.io/badge/NuGet-0.0.1--preview.0.0.1-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## 维护人员
-[@rocketRobin](https://github.com/rocketRobin)
-[@thinkershare](https://github.com/thinkershare)  
+[@rocketRobin](https://github.com/rocketRobin)  
+[@thinkershare](https://github.com/thinkershare)
 
 ## 如何贡献
 [提一个Issue](contributing.md)  
