@@ -61,7 +61,7 @@ namespace ThinkerShare.Signature {
         }
 
         private void Add(byte[] data, Node parent, string[] extentions, int depth) {
-            parent.Children ??= new SortedList<byte, Node>((int)(128 / Math.Pow(2, depth)));
+            parent.Children = parent.Children ?? new SortedList<byte, Node>((int)(128 / Math.Pow(2, depth)));
 
             Node currentNode;
             if (!parent.Children.ContainsKey(data[depth])) {
@@ -77,7 +77,7 @@ namespace ThinkerShare.Signature {
             if (depth == (data.Length - 1)) {
                 //已经是文件头最后一个字节,则当前文件头映射必须就在此层
                 //为此类型的头添加文件扩展名
-                currentNode.Extentions ??= new List<string>(4);
+                currentNode.Extentions = currentNode.Extentions ?? new List<string>(4);
                 currentNode.Extentions.AddRange(extentions);
                 return;
             }

@@ -51,17 +51,17 @@ namespace ThinkerShare.Signature {
         /// <summary>
         /// 尺寸
         /// </summary>
-        public readonly int Count { get; }
+        public int Count { get; }
 
         /// <summary>
         /// 起始位置
         /// </summary>
-        public readonly int Start { get; }
+        public int Start { get; }
 
         /// <summary>
         /// 将头字节当作ASCII编码解析出的字符串
         /// </summary>
-        public readonly string Value { get; }
+        public string Value { get; }
 
         /// <summary>
         /// 构造偏移
