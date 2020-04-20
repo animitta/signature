@@ -8,7 +8,7 @@ and many times need to know the type of files uploaded by users.
 Usually we can assume the type of file uploaded by the user by the file extension,  
 but many times the file extension name is untrusted.  
 Therefore, I developed this library,  
-which is a general library that reads the file header to obtain the
+which is a general library that reads the file header to obtain the  
 true type and MIME TYPE of the file(only depend `.NET Standard 2.0`).
 
 ## Install
