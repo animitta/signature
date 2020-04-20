@@ -49,7 +49,7 @@ List<string> result = sniffer.Match(head);
 [Submit Issue](contributing.md)  
 [Pull Request](contributing.md)  
 
-** This project follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct**  
+**This project follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct**  
 
 ### Contributors
 <img height="60" src="https://thinkershare.com/storage/project/signature/contributors.png" />
