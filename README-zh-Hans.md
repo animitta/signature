@@ -24,12 +24,12 @@ $ dotnet add package ThinkerShare.Signature
 
 + 获取一个文件的真实数据类型
 ```CSharp
-var sniffer = new Sniffer();
-sniffer.Populate(Record.Common);
-sniffer.Populate(Record.Unfrequent);
+var signature = new Signature();
+signature.AddRecords(Record.Common);
+signature.AddRecords(Record.Unfrequent);
 
 var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
-List<string> result = sniffer.Match(head);
+List<string> result = signature.Match(head);
 //结果: ["jpg","jpeg"]
 ```
 
