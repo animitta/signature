@@ -2,11 +2,14 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ThinkerShare.Signature.Extensions;
 
-namespace ThinkerShare.Signature.Test {
+namespace ThinkerShare.Signature.Test
+{
     [TestClass]
-    public class SignatureTest {
+    public class SignatureTest
+    {
         [TestMethod]
-        public void RecordTest() {
+        public void RecordTest()
+        {
             var Signature = new Signature();
             var data = new byte[] { 0x11, 0x22, 0x33 };
             Signature.AddRecord(data, new[] { "what", "file", "type" });
@@ -19,7 +22,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void ComplexRecordTest() {
+        public void ComplexRecordTest()
+        {
             var Signature = new Signature();
             var record = new Record("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2);
             Signature.AddRecord(record);
@@ -33,7 +37,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void JpegTest() {
+        public void JpegTest()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
             Signature.AddRecords(Record.Unfrequent);
@@ -46,7 +51,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void JpegTest2() {
+        public void JpegTest2()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
 
@@ -63,7 +69,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void JpegTest3() {
+        public void JpegTest3()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
 
@@ -80,7 +87,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void FindAllTest() {
+        public void FindAllTest()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
             Signature.AddRecords(Record.Unfrequent);
@@ -94,7 +102,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void Gp3Test() {
+        public void Gp3Test()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Unfrequent);
 
@@ -110,7 +119,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void MimeTest() {
+        public void MimeTest()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
             Signature.AddRecords(Record.Unfrequent);
@@ -123,7 +133,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void MultipleTest() {
+        public void MultipleTest()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
             Signature.AddRecords(Record.Unfrequent);
@@ -143,7 +154,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void OverlapTest() {
+        public void OverlapTest()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
             Signature.AddRecords(Record.Unfrequent);
@@ -158,7 +170,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void PdbTest() {
+        public void PdbTest()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Unfrequent);
 
@@ -179,7 +192,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [TestMethod]
-        public void GifTest() {
+        public void GifTest()
+        {
             var Signature = new Signature();
             Signature.AddRecords(Record.Common);
 

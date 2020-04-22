@@ -1,10 +1,13 @@
 using Xunit;
 using ThinkerShare.Signature.Extensions;
 
-namespace ThinkerShare.Signature.Test {
-    public class MimeTypesTest {
+namespace ThinkerShare.Signature.Test
+{
+    public class MimeTypesTest
+    {
         [Fact]
-        public void DotTest() {
+        public void DotTest()
+        {
             var extension = ".jpg";
 
             var result = extension.GetMimeType();
@@ -12,7 +15,8 @@ namespace ThinkerShare.Signature.Test {
         }
 
         [Fact]
-        public void RegularTest() {
+        public void RegularTest()
+        {
             var extension = ".txt";
             var result = FileExtensionStringExtensions.GetMimeType(extension);
             Assert.Equal("text/plain", result);

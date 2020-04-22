@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ThinkerShare.Signature.Extensions;
 
-namespace ThinkerShare.Signature.Test {
+namespace ThinkerShare.Signature.Test
+{
     [TestClass]
-    public class ComplexRecordExtentionsTest {
+    public class ComplexRecordExtentionsTest
+    {
         [TestMethod]
-        public void ComplexFileTypeTest() {
+        public void ComplexFileTypeTest()
+        {
             var list = new List<ComplexRecord>() {
                 new Record("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2)
             };
