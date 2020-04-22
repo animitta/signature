@@ -62,7 +62,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 常用的文件类型
         /// </summary>
-        public static List<Record> Common => new List<Record>
+        public static List<Record> FrequentRecords => new List<Record>
         {
             new Record("asf wma wmv", "30 26 B2 75 8E 66 CF 11 A6 D9 00 AA 00 62 CE 6C"),
             new Record("ogg oga ogv", "4F 67 67 53"),
@@ -109,7 +109,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 不常用的文件类型
         /// </summary>
-        public static List<Record> Unfrequent => new List<Record>
+        public static List<Record> UnfrequentRecords => new List<Record>
         {
             new Record("bin", "53 50 30 31"),
             new Record("bac", "42 41 43 4B 4D 49 4B 45 44 49 53 4B"),

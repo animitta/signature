@@ -214,12 +214,12 @@
             <param name="offset">偏移</param>
             <param name="description">描述</param>
         </member>
-        <member name="P:ThinkerShare.Signature.Record.Common">
+        <member name="P:ThinkerShare.Signature.Record.FrequentRecords">
             <summary>
             常用的文件类型
             </summary>
         </member>
-        <member name="P:ThinkerShare.Signature.Record.Unfrequent">
+        <member name="P:ThinkerShare.Signature.Record.UnfrequentRecords">
             <summary>
             不常用的文件类型
             </summary>

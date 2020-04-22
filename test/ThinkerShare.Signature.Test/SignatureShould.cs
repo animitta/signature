@@ -1,27 +1,24 @@
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ThinkerShare.Signature.Extensions;
+using Xunit;
 
 namespace ThinkerShare.Signature.Test
 {
-    [TestClass]
     public class SignatureShould
     {
-        [TestMethod]
-        public void RecordTest()
+        [Fact]
+        public void BeContainsWhenMatch()
         {
             var Signature = new Signature();
             var data = new byte[] { 0x11, 0x22, 0x33 };
             Signature.AddRecord(data, new[] { "what", "file", "type" });
 
             var result = Signature.Match(data);
-            Assert.IsTrue(result.Contains("what"));
-            Assert.IsTrue(result.Contains("file"));
-            Assert.IsTrue(result.Contains("type"));
+            Assert.Contains("what", result);
+            Assert.Contains("file", result);
+            Assert.Contains("type", result);
         }
 
-        [TestMethod]
-        public void ComplexRecordTest()
+        [Fact]
+        public void BeContainsWhenComplexMatch()
         {
             var Signature = new Signature();
             var record = new Record("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2);
@@ -30,81 +27,75 @@ namespace ThinkerShare.Signature.Test
             var data = new byte[] { 0x11, 0x11, 0x11, 0x22, 0xff, 0xdd, 0x1d, 0x33 };
             var result = Signature.Match(data);
 
-            Assert.IsTrue(result.Contains("a"));
-            Assert.IsTrue(result.Contains("b"));
-            Assert.IsTrue(result.Contains("c"));
+            Assert.Contains("a", result);
+            Assert.Contains("b", result);
+            Assert.Contains("c", result);
         }
 
-        [TestMethod]
-        public void JpegTest()
+        [Fact]
+        public void BeContainsJpgWhenMatch()
         {
             var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
-            Signature.AddRecords(Record.Unfrequent);
+            Signature.AddRecords(Record.FrequentRecords);
+            Signature.AddRecords(Record.UnfrequentRecords);
 
-            var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
-            var result = Signature.Match(head);
+            var data = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
+            var result = Signature.Match(data);
 
-            Assert.IsTrue(result.Contains("jpg"));
-            Assert.IsTrue(result.Contains("jpeg"));
-        }
+            Assert.Contains("jpg", result);
+            Assert.Contains("jpeg", result);
 
-        [TestMethod]
-        public void JpegTest2()
-        {
-            var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
 
-            var data = new byte[]
+            Signature = new Signature();
+            Signature.AddRecords(Record.FrequentRecords);
+
+            data = new byte[]
             {
                 0xff, 0xd8, 0xff, 0xe0,
                 0x66, 0x74, 0x4a, 0x46,
                 0x49, 0x46, 0x00, 0x01,
             };
-            var result = Signature.Match(data);
+            result = Signature.Match(data);
 
-            Assert.IsTrue(result.Contains("jpg"));
-            Assert.IsTrue(result.Contains("jpeg"));
-        }
+            Assert.Contains("jpg", result);
+            Assert.Contains("jpeg", result);
 
-        [TestMethod]
-        public void JpegTest3()
-        {
-            var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
 
-            var data = new byte[]
+            Signature = new Signature();
+            Signature.AddRecords(Record.FrequentRecords);
+
+            data = new byte[]
             {
                 0xff, 0xd8, 0xff, 0xe1,
                 0x66, 0x74, 0x45, 0x78,
                 0x69, 0x66, 0x00, 0x00,
             };
-            var result = Signature.Match(data);
+            result = Signature.Match(data);
 
-            Assert.IsTrue(result.Contains("jpg"));
-            Assert.IsTrue(result.Contains("jpeg"));
+            Assert.Contains("jpg", result);
+            Assert.Contains("jpeg", result);
         }
 
-        [TestMethod]
-        public void FindAllTest()
+        [Fact]
+        public void BeContainsPdfWhenMatch()
         {
             var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
-            Signature.AddRecords(Record.Unfrequent);
-
+            Signature.AddRecords(Record.FrequentRecords);
+            Signature.AddRecords(Record.UnfrequentRecords);
             var data = new byte[] { 0x25, 0x50, 0x44, 0x46, 0x11 };
             Signature.AddRecord(data, new[] { "pdfx" });
+
             var result = Signature.Match(data, true);
 
-            Assert.IsTrue(result.Contains("pdf"));
-            Assert.IsTrue(result.Contains("pdfx"));
+            Assert.Contains("pdf", result);
+            Assert.Contains("pdfx", result);
         }
 
-        [TestMethod]
-        public void Gp3Test()
+        [Fact]
+        public void BeContains3gpWhenMatch()
         {
             var Signature = new Signature();
-            Signature.AddRecords(Record.Unfrequent);
+            Signature.AddRecords(Record.UnfrequentRecords);
 
             var data = new byte[] {
                 0x11, 0x11, 0x11, 0x22,
@@ -112,67 +103,53 @@ namespace ThinkerShare.Signature.Test
             };
             var result = Signature.Match(data);
 
-            Assert.IsTrue(result.Any());
-            Assert.IsTrue(result.Contains("3gp"));
-            Assert.IsTrue(result.Contains("3g2"));
+            Assert.NotEmpty(result);
+            Assert.Contains("3gp", result);
+            Assert.Contains("3g2", result);
         }
 
-        [TestMethod]
-        public void MimeTest()
+        [Fact]
+        public void BeContainsWhenMultipleMatch()
         {
             var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
-            Signature.AddRecords(Record.Unfrequent);
+            Signature.AddRecords(Record.FrequentRecords);
+            Signature.AddRecords(Record.UnfrequentRecords);
 
-            var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
-            var result = Signature.Match(head);
-
-            var mimeType = result.First().GetMimeType();
-            Assert.IsTrue(mimeType == "image/jpeg");
-        }
-
-        [TestMethod]
-        public void MultipleTest()
-        {
-            var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
-            Signature.AddRecords(Record.Unfrequent);
             var dataZip = new byte[] { 0x50, 0x4b, 0x03, 0x04 };
             var dataZipEmpty = new byte[] { 0x50, 0x4b, 0x05, 0x06 };
-
             var resultZip = Signature.Match(dataZip);
             var resultZipEmpty = Signature.Match(dataZipEmpty);
 
-            Assert.IsTrue(resultZip.Contains("zip"));
-            Assert.IsTrue(resultZip.Contains("docx"));
-            Assert.IsTrue(resultZip.Contains("apk"));
+            Assert.Contains("apk", resultZip);
+            Assert.Contains("zip", resultZip);
+            Assert.Contains("docx", resultZip);
 
-            Assert.IsTrue(resultZipEmpty.Contains("zip"));
-            Assert.IsTrue(resultZipEmpty.Contains("docx"));
-            Assert.IsTrue(resultZipEmpty.Contains("apk"));
+            Assert.Contains("zip", resultZipEmpty);
+            Assert.Contains("apk", resultZipEmpty);
+            Assert.Contains("docx", resultZipEmpty);
         }
 
-        [TestMethod]
-        public void OverlapTest()
+        [Fact]
+        public void BeContainsWhenOverlap()
         {
             var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
-            Signature.AddRecords(Record.Unfrequent);
-
+            Signature.AddRecords(Record.FrequentRecords);
+            Signature.AddRecords(Record.UnfrequentRecords);
             var data = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
             Signature.AddRecord(data, new[] { "jpegx" });
+
             var result = Signature.Match(data);
 
-            Assert.IsTrue(result.Contains("jpg"));
-            Assert.IsTrue(result.Contains("jpeg"));
-            Assert.IsTrue(result.Contains("jpegx"));
+            Assert.Contains("jpg", result);
+            Assert.Contains("jpeg", result);
+            Assert.Contains("jpegx", result);
         }
 
-        [TestMethod]
-        public void PdbTest()
+        [Fact]
+        public void BeContainsPdbWhenMatch()
         {
             var Signature = new Signature();
-            Signature.AddRecords(Record.Unfrequent);
+            Signature.AddRecords(Record.UnfrequentRecords);
 
             var data = new byte[]
             {
@@ -187,14 +164,14 @@ namespace ThinkerShare.Signature.Test
             };
             var result = Signature.Match(data);
 
-            Assert.IsTrue(result.Contains("pdb"));
+            Assert.Contains("pdb", result);
         }
 
-        [TestMethod]
-        public void GifTest()
+        [Fact]
+        public void BeContainsGifWhenMatch()
         {
             var Signature = new Signature();
-            Signature.AddRecords(Record.Common);
+            Signature.AddRecords(Record.FrequentRecords);
 
             var data = new byte[]
             {
@@ -203,8 +180,7 @@ namespace ThinkerShare.Signature.Test
             };
             var results = Signature.Match(data, true);
 
-            Assert.IsTrue(results.Contains("gif"));
-            Assert.IsFalse(results.Contains("mpg"));
+            Assert.Contains("gif", results);
         }
     }
 }
