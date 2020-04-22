@@ -19,7 +19,7 @@ PM> Install-Package ThinkerShare.Signature
 
 * `dotnet.exe`
 ```bash
-$ dotnet add package ThinkerShare.Signature --version 0.0.1-*
+$ dotnet add package ThinkerShare.Signature
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ List<string> result = signature.Match(head);
 ## Badge
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/Document-Signature-orange)](https://thinkershare.com/project/signature)
-[![Signature](https://img.shields.io/badge/NuGet-0.0.1--preview.0.0.1-blue)](https://www.nuget.org/packages/thinkershare.signature)
+[![Signature](https://img.shields.io/badge/NuGet-0.1.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## Maintainers
 [@rocketRobin](https://github.com/rocketRobin)  
