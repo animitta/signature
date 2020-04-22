@@ -5,7 +5,7 @@ namespace ThinkerShare.Signature
     /// <summary>
     /// 节点对象
     /// </summary>
-    public class Node
+    internal class Node
     {
         /// <summary>
         /// 深度

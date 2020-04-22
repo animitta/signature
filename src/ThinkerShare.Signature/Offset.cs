@@ -3,7 +3,7 @@
     /// <summary>
     /// 表示一个复杂头记录中的一个偏移节
     /// </summary>
-    public struct Offset
+    internal struct Offset
     {
         /// <summary>
         /// 构造偏移

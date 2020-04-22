@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace ThinkerShare.Signature.Extensions
 {
     /// <summary>
-    /// （复杂)文件扩展名到文件头的记录扩展方法
+    /// 文件扩展名到文件头的记录扩展方法(复杂)
     /// </summary>
     public static class ComplexRecordExtensions
     {
@@ -78,7 +78,7 @@ namespace ThinkerShare.Signature.Extensions
         /// <param name="data">目标文件的头数据</param>
         /// <param name="matchAll">匹配所有</param>
         /// <returns>查找到的文件扩展名列表</returns>
-        public static List<string> Match(this List<ComplexRecord> records, byte[] data, bool matchAll = false)
+        internal static List<string> Match(this List<ComplexRecord> records, byte[] data, bool matchAll = false)
         {
             var extentionStore = new List<string>(4);
 

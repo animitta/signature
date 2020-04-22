@@ -6,7 +6,7 @@ namespace ThinkerShare.Signature.Extensions
     /// <summary>
     ///  文件扩展名称字符串的扩展方法(获取MIME TYPE)
     /// </summary>
-    public static class FileExtensionStringExtensions
+    public static class StringExtensions
     {
         private static readonly Dictionary<string, string> MimeTypeDictionary = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
         {
@@ -563,6 +563,24 @@ namespace ThinkerShare.Signature.Extensions
             { "zip", "application/zip" },
             { "zsh", "text/x-script.zsh" },
         };
+
+        /// <summary>
+        /// 将文件头字符串表示转换为其实际二进制表示
+        /// </summary>
+        /// <param name="header">文件头的ASCII表示(使用空格分隔)</param>
+        /// <returns>文件头实际字节内容</returns>
+        internal static byte[] ConvertToBytes(this string header)
+        {
+            var array = header.Split(',', ' ');
+            var byteArray = new byte[array.Length];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                byteArray[i] = Convert.ToByte(array[i], 16);
+            }
+
+            return byteArray;
+        }
 
         /// <summary>
         /// 为MIME字符串添加扩展方法

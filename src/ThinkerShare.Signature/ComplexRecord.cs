@@ -20,7 +20,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 全部的请求头偏移
         /// </summary>
-        public List<Offset> Offsets { get; set; }
+        internal List<Offset> Offsets { get; set; }
 
         /// <summary>
         /// 扩展名(一个元数据格式可能对应多个扩展名,例如zip压缩文件,可能对应.zip,.crx等)

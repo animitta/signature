@@ -3,7 +3,7 @@
 namespace ThinkerShare.Signature
 {
     /// <summary>
-    /// (原始)文件扩展名到文件头的记录.
+    /// 文件扩展名到文件头的记录(原始)
     /// </summary>
     public class Record
     {

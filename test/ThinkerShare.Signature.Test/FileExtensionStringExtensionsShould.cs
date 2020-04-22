@@ -3,7 +3,7 @@ using ThinkerShare.Signature.Extensions;
 
 namespace ThinkerShare.Signature.Test
 {
-    public class MimeTypesShould
+    public class FileExtensionStringExtensionsShould
     {
         [Fact]
         public void BeEqualWhenGetMimeType()

@@ -33,7 +33,7 @@
         </member>
         <member name="T:ThinkerShare.Signature.Extensions.ComplexRecordExtensions">
             <summary>
-            （复杂)文件扩展名到文件头的记录扩展方法
+            文件扩展名到文件头的记录扩展方法(复杂)
             </summary>
         </member>
         <member name="M:ThinkerShare.Signature.Extensions.ComplexRecordExtensions.Add(System.Collections.Generic.List{ThinkerShare.Signature.ComplexRecord},ThinkerShare.Signature.Record)">
@@ -52,41 +52,24 @@
             <param name="matchAll">匹配所有</param>
             <returns>查找到的文件扩展名列表</returns>
         </member>
-        <member name="T:ThinkerShare.Signature.Extensions.FileExtensionStringExtensions">
+        <member name="T:ThinkerShare.Signature.Extensions.StringExtensions">
             <summary>
              文件扩展名称字符串的扩展方法(获取MIME TYPE)
             </summary>
         </member>
-        <member name="M:ThinkerShare.Signature.Extensions.FileExtensionStringExtensions.GetMimeType(System.String)">
-            <summary>
-            为MIME字符串添加扩展方法
-            </summary>
-            <param name="extention">文件的扩展名(字符串,含有.或者不含有点)</param>
-            <returns>MIME TYPE字符串</returns>
-        </member>
-        <member name="T:ThinkerShare.Signature.Extensions.FileHeaderStringExtensions">
-            <summary>
-            文件头字符串库总
-            </summary>
-        </member>
-        <member name="M:ThinkerShare.Signature.Extensions.FileHeaderStringExtensions.ConvertToBytes(System.String)">
+        <member name="M:ThinkerShare.Signature.Extensions.StringExtensions.ConvertToBytes(System.String)">
             <summary>
             将文件头字符串表示转换为其实际二进制表示
             </summary>
             <param name="header">文件头的ASCII表示(使用空格分隔)</param>
             <returns>文件头实际字节内容</returns>
         </member>
-        <member name="T:ThinkerShare.Signature.SignatureExtensions">
+        <member name="M:ThinkerShare.Signature.Extensions.StringExtensions.GetMimeType(System.String)">
             <summary>
-            Sniffer扩展方法.
+            为MIME字符串添加扩展方法
             </summary>
-        </member>
-        <member name="M:ThinkerShare.Signature.SignatureExtensions.AddRecords(ThinkerShare.Signature.Signature,System.Collections.Generic.IEnumerable{ThinkerShare.Signature.Record})">
-            <summary>
-            向探测器添加文件头的记录序列.
-            </summary>
-            <param name="sniffer">探测器.</param>
-            <param name="records">文件头记录序列.</param>
+            <param name="extention">文件的扩展名(字符串,含有.或者不含有点)</param>
+            <returns>MIME TYPE字符串</returns>
         </member>
         <member name="T:ThinkerShare.Signature.Node">
             <summary>
@@ -179,7 +162,7 @@
         </member>
         <member name="T:ThinkerShare.Signature.Record">
             <summary>
-            (原始)文件扩展名到文件头的记录.
+            文件扩展名到文件头的记录(原始)
             </summary>
         </member>
         <member name="M:ThinkerShare.Signature.Record.#ctor(System.String,System.String)">
@@ -267,6 +250,12 @@
             </summary>
             <param name="data">文件头</param>
             <param name="extentions">文件扩展名列表</param>
+        </member>
+        <member name="M:ThinkerShare.Signature.Signature.AddRecords(System.Collections.Generic.IEnumerable{ThinkerShare.Signature.Record})">
+            <summary>
+            向探测器添加文件头的记录序列
+            </summary>
+            <param name="records">文件头记录序列</param>
         </member>
         <member name="M:ThinkerShare.Signature.Signature.Match(System.Byte[],System.Boolean)">
             <summary>

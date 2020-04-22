@@ -181,6 +181,7 @@ namespace ThinkerShare.Signature.Test
             var results = Signature.Match(data, true);
 
             Assert.Contains("gif", results);
+            Assert.DoesNotContain("mpg", results);
         }
     }
 }

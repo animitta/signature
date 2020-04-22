@@ -70,6 +70,18 @@ namespace ThinkerShare.Signature
         }
 
         /// <summary>
+        /// 向探测器添加文件头的记录序列
+        /// </summary>
+        /// <param name="records">文件头记录序列</param>
+        public void AddRecords(IEnumerable<Record> records)
+        {
+            foreach (var record in records)
+            {
+                AddRecord(record);
+            }
+        }
+
+        /// <summary>
         /// 查找文件头的扩展名
         /// </summary>
         /// <param name="data">文件头</param>
