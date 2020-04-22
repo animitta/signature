@@ -5,6 +5,15 @@ namespace ThinkerShare.Signature.Test
     public class SignatureShould
     {
         [Fact]
+        public void BeTrueWhenComplexMatch()
+        {
+            var complexRecord = Record.Create("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2) as ComplexRecord;
+            var data = new byte[] { 0x11, 0x11, 0x11, 0x22, 0xff, 0xdd, 0x1d, 0x33 };
+            var result = complexRecord.Match(data);
+            Assert.True(result);
+        }
+
+        [Fact]
         public void BeContainsWhenMatch()
         {
             var Signature = new Signature();
@@ -21,7 +30,7 @@ namespace ThinkerShare.Signature.Test
         public void BeContainsWhenComplexMatch()
         {
             var Signature = new Signature();
-            var record = new Record("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2);
+            var record = Record.Create("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2);
             Signature.AddRecord(record);
 
             var data = new byte[] { 0x11, 0x11, 0x11, 0x22, 0xff, 0xdd, 0x1d, 0x33 };

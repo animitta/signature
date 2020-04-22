@@ -1,30 +1,23 @@
 ﻿namespace ThinkerShare.Signature
 {
     /// <summary>
-    /// 表示一个复杂头记录中的一个偏移节
+    /// 复杂文件头记录中的偏移
     /// </summary>
     internal struct Offset
     {
         /// <summary>
-        /// 构造偏移
+        /// 构造器
         /// </summary>
-        /// <param name="start">偏移开始</param>
-        /// <param name="count">偏移结束</param>
-        /// <param name="value">内容(ASCII编码的字节字符串)</param>
-        public Offset(int start, int count, string value)
+        /// <param name="start">偏移开始位置</param>
+        /// <param name="value">将头字节当作ASCII编码解析出的字符串</param>
+        public Offset(int start, string value)
         {
             Start = start;
-            Count = count;
             Value = value;
         }
 
         /// <summary>
-        /// 尺寸
-        /// </summary>
-        public int Count { get; }
-
-        /// <summary>
-        /// 起始位置
+        /// 偏移开始位置
         /// </summary>
         public int Start { get; }
 
@@ -32,6 +25,11 @@
         /// 将头字节当作ASCII编码解析出的字符串
         /// </summary>
         public string Value { get; }
+
+        /// <summary>
+        /// 偏移匹配尺寸
+        /// </summary>
+        public int Count => Value?.Length ?? 0;
 
         /// <summary>
         /// 重写==运算符
@@ -56,6 +54,16 @@
         }
 
         /// <summary>
+        /// 强类型的比较实现
+        /// </summary>
+        /// <param name="other">其它对象</param>
+        /// <returns>是否相等</returns>
+        public bool Equals(Offset other)
+        {
+            return Start == other.Start && Value == other.Value;
+        }
+
+        /// <summary>
         /// 比较相等性
         /// </summary>
         /// <param name="other">其它对象</param>
@@ -67,22 +75,12 @@
         }
 
         /// <summary>
-        /// 强类型的比较实现
-        /// </summary>
-        /// <param name="other">其它对象</param>
-        /// <returns>是否相等</returns>
-        public bool Equals(Offset other)
-        {
-            return Count == other.Count && Start == other.Start && Value == other.Value;
-        }
-
-        /// <summary>
         /// 重写HashCode算法
         /// </summary>
         /// <returns>hash code</returns>
         public override int GetHashCode()
         {
-            return Start & Count & Value.GetHashCode();
+            return Start & Value.GetHashCode();
         }
     }
 }

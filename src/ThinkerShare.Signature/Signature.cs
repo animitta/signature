@@ -20,13 +20,13 @@ namespace ThinkerShare.Signature
         /// <param name="record">记录</param>
         public void AddRecord(Record record)
         {
-            if (record.IsComplex)
+            if (record is ComplexRecord complexRecord)
             {
-                _metadatas.Add(record);
+                _metadatas.Add(complexRecord);
             }
             else
             {
-                AddRecord(record.Hex.ConvertToBytes(), record.Extentions.Split(',', ' '));
+                AddRecord(record.Hex.ParseBytes(), record.Extentions.Split(',', ' '));
             }
         }
 
@@ -85,17 +85,17 @@ namespace ThinkerShare.Signature
         /// 查找文件头的扩展名
         /// </summary>
         /// <param name="data">文件头</param>
-        /// <param name="matchComplex">是否匹配查找全部的库总名</param>
+        /// <param name="matchAll">是否匹配查找全部的库总名</param>
         /// <returns>匹配的文件扩展结果列表</returns>
-        public List<string> Match(byte[] data, bool matchComplex = false)
+        public List<string> Match(byte[] data, bool matchAll = false)
         {
             var extentionStore = new List<string>(4);
-            Match(data, 0, _rootNode, extentionStore, matchComplex);
+            Match(data, 0, _rootNode, extentionStore, matchAll);
 
-            if (matchComplex || !extentionStore.Any())
+            if (matchAll || !extentionStore.Any())
             {
                 // 单一匹配失败或者接受复杂匹配
-                extentionStore.AddRange(_metadatas.Match(data, matchComplex));
+                extentionStore.AddRange(_metadatas.Match(data, matchAll));
             }
 
             return extentionStore.Distinct().ToList();

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 namespace ThinkerShare.Signature.Extensions
 {
     /// <summary>
-    ///  文件扩展名称字符串的扩展方法(获取MIME TYPE)
+    /// 字符串扩展方法
     /// </summary>
     public static class StringExtensions
     {
-        private static readonly Dictionary<string, string> MimeTypeDictionary = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        private static readonly Dictionary<string, string> _mimeTypeMap = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
         {
             { "323", "text/h323" },
             { "3dmf", "x-world/x-3dmf" },
@@ -565,16 +565,15 @@ namespace ThinkerShare.Signature.Extensions
         };
 
         /// <summary>
-        /// 将文件头字符串表示转换为其实际二进制表示
+        /// 将文件头string表示转换为其实际二进制表示
         /// </summary>
-        /// <param name="header">文件头的ASCII表示(使用空格分隔)</param>
+        /// <param name="header">文件头的ASCII string表示(使用空格或,分隔)</param>
         /// <returns>文件头实际字节内容</returns>
-        internal static byte[] ConvertToBytes(this string header)
+        internal static byte[] ParseBytes(this string header)
         {
             var array = header.Split(',', ' ');
             var byteArray = new byte[array.Length];
-
-            for (int i = 0; i < array.Length; i++)
+            for (var i = 0; array.Length > i; i++)
             {
                 byteArray[i] = Convert.ToByte(array[i], 16);
             }
@@ -583,23 +582,23 @@ namespace ThinkerShare.Signature.Extensions
         }
 
         /// <summary>
-        /// 为MIME字符串添加扩展方法
+        /// 获取文件扩展名对应的MIME TYPE字符串
         /// </summary>
-        /// <param name="extention">文件的扩展名(字符串,含有.或者不含有点)</param>
-        /// <returns>MIME TYPE字符串</returns>
+        /// <param name="extention">文件的扩展名(可以带有.或者不带有)</param>
+        /// <returns>MIME TYPE字符串或application/octet-stream(未知)</returns>
         public static string GetMimeType(this string extention)
         {
-            if (extention == null)
+            if (string.IsNullOrEmpty(extention))
             {
                 throw new ArgumentNullException(nameof(extention));
             }
 
-            if (extention.StartsWith("."))
+            if (extention[0] == '.')
             {
-                extention = extention.TrimStart('.');
+                extention = extention.Substring(1);
             }
 
-            if (MimeTypeDictionary.TryGetValue(extention, out string mimeType))
+            if (_mimeTypeMap.TryGetValue(extention, out string mimeType))
             {
                 return mimeType;
             }
