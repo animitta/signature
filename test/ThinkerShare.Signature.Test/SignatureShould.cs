@@ -5,7 +5,7 @@ using ThinkerShare.Signature.Extensions;
 namespace ThinkerShare.Signature.Test
 {
     [TestClass]
-    public class SignatureTest
+    public class SignatureShould
     {
         [TestMethod]
         public void RecordTest()
@@ -13,7 +13,6 @@ namespace ThinkerShare.Signature.Test
             var Signature = new Signature();
             var data = new byte[] { 0x11, 0x22, 0x33 };
             Signature.AddRecord(data, new[] { "what", "file", "type" });
-
 
             var result = Signature.Match(data);
             Assert.IsTrue(result.Contains("what"));

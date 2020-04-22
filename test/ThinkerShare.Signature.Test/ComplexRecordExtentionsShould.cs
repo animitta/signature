@@ -6,7 +6,7 @@ using ThinkerShare.Signature.Extensions;
 namespace ThinkerShare.Signature.Test
 {
     [TestClass]
-    public class ComplexRecordExtentionsTest
+    public class ComplexRecordExtentionsShould
     {
         [TestMethod]
         public void ComplexFileTypeTest()

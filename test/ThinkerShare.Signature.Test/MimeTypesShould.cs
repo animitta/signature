@@ -3,7 +3,7 @@ using ThinkerShare.Signature.Extensions;
 
 namespace ThinkerShare.Signature.Test
 {
-    public class MimeTypesTest
+    public class MimeTypesShould
     {
         [Fact]
         public void DotTest()
