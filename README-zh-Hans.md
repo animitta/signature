@@ -22,7 +22,7 @@ $ dotnet add package ThinkerShare.Signature
 ## 使用
 下面是简单的使用示例,详情请参考[Signature文档](https://thinkershare.com/project/signature)
 
-+ 获取一个文件的真实数据类型
++ 获取一个文件的真实格式
 ```CSharp
 var signature = new Signature();
 signature.AddRecords(Record.FrequentRecords);
