@@ -25,8 +25,8 @@ $ dotnet add package ThinkerShare.Signature
 + 获取一个文件的真实数据类型
 ```CSharp
 var signature = new Signature();
-signature.AddRecords(Record.Common);
-signature.AddRecords(Record.Unfrequent);
+signature.AddRecords(Record.FrequentRecords);
+signature.AddRecords(Record.UnfrequentRecords);
 
 var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
 List<string> result = signature.Match(head);
@@ -36,7 +36,7 @@ List<string> result = signature.Match(head);
 ## 徽标
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/Document-Signature-orange)](https://thinkershare.com/project/signature)
-[![Signature](https://img.shields.io/badge/NuGet-0.1.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
+[![Signature](https://img.shields.io/badge/NuGet-0.2.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## 维护人员
 [@rocketRobin](https://github.com/rocketRobin)  

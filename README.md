@@ -1,7 +1,6 @@
 # Signature
 
 English | [中文](README-zh-Hans.md)
-
 ## Background
 In web application, we accept files uploaded by users,  
 and many times need to know the type of files uploaded by users.  
@@ -28,8 +27,8 @@ The following is a simple usage example, please refer [Signature Documentation](
 + Obtaining the factual file format of a file
 ```CSharp
 var signature = new Signature();
-signature.AddRecords(Record.Common);
-signature.AddRecords(Record.Unfrequent);
+signature.AddRecords(Record.FrequentRecords);
+signature.AddRecords(Record.UnfrequentRecords);
 
 var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
 List<string> result = signature.Match(head);
@@ -39,7 +38,7 @@ List<string> result = signature.Match(head);
 ## Badge
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/Document-Signature-orange)](https://thinkershare.com/project/signature)
-[![Signature](https://img.shields.io/badge/NuGet-0.1.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
+[![Signature](https://img.shields.io/badge/NuGet-0.2.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## Maintainers
 [@rocketRobin](https://github.com/rocketRobin)  
