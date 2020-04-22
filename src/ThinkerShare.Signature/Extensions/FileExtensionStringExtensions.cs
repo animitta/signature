@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ThinkerShare.Signature.Extensions {
+namespace ThinkerShare.Signature.Extensions
+{
     /// <summary>
     ///  文件扩展名称字符串的扩展方法(获取MIME TYPE)
     /// </summary>
-    public static class FileExtensionStringExtensions {
-        private static readonly Dictionary<string, string> _mimeTypeDictionary =
-            new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase){
+    public static class FileExtensionStringExtensions
+    {
+        private static readonly Dictionary<string, string> MimeTypeDictionary = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        {
             { "323", "text/h323" },
             { "3dmf", "x-world/x-3dmf" },
             { "3dm", "x-world/x-3dmf" },
@@ -559,7 +561,7 @@ namespace ThinkerShare.Signature.Extensions {
             { "xyz", "chemical/x-pdb" },
             { "z", "application/x-compressed" },
             { "zip", "application/zip" },
-            { "zsh", "text/x-script.zsh" }
+            { "zsh", "text/x-script.zsh" },
         };
 
         /// <summary>
@@ -567,18 +569,24 @@ namespace ThinkerShare.Signature.Extensions {
         /// </summary>
         /// <param name="extention">文件的扩展名(字符串,含有.或者不含有点)</param>
         /// <returns>MIME TYPE字符串</returns>
-        public static string GetMimeType(this string extention) {
-            if (extention == null) {
+        public static string GetMimeType(this string extention)
+        {
+            if (extention == null)
+            {
                 throw new ArgumentNullException(nameof(extention));
             }
-            if (extention.StartsWith(".")) {
+
+            if (extention.StartsWith("."))
+            {
                 extention = extention.TrimStart('.');
             }
 
-            if (_mimeTypeDictionary.TryGetValue(extention, out string mimeType)) {
+            if (MimeTypeDictionary.TryGetValue(extention, out string mimeType))
+            {
                 return mimeType;
             }
-            else {
+            else
+            {
                 return "application/octet-stream";
             }
         }

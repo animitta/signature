@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ThinkerShare.Signature</name>
+    </assembly>
+    <members>
+        <member name="T:ThinkerShare.Signature.ComplexRecord">
+            <summary>
+            （复杂)文件扩展名到文件头的记录
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.ComplexRecord.#ctor">
+            <summary>
+            构造器
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.ComplexRecord.Offsets">
+            <summary>
+            全部的请求头偏移
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.ComplexRecord.Extentions">
+            <summary>
+            扩展名(一个元数据格式可能对应多个扩展名,例如zip压缩文件,可能对应.zip,.crx等)
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.ComplexRecord.Match(System.Byte[])">
+            <summary>
+            指定的流内容是否匹配当前的元数据
+            </summary>
+            <param name="data">文件头内容</param>
+            <returns>匹配结果</returns>
+        </member>
+        <member name="T:ThinkerShare.Signature.Extensions.ComplexRecordExtensions">
+            <summary>
+            （复杂)文件扩展名到文件头的记录扩展方法
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Extensions.ComplexRecordExtensions.Add(System.Collections.Generic.List{ThinkerShare.Signature.ComplexRecord},ThinkerShare.Signature.Record)">
+            <summary>
+            将HeaderRecord解析为MetadataRecord然后添加到Metadata列表中
+            </summary>
+            <param name="records">MetadataRecord列表</param>
+            <param name="record">需要添加的HeaderRecord文件头记录</param>
+        </member>
+        <member name="M:ThinkerShare.Signature.Extensions.ComplexRecordExtensions.Match(System.Collections.Generic.List{ThinkerShare.Signature.ComplexRecord},System.Byte[],System.Boolean)">
+            <summary>
+            从MetadataRecord列表中匹配指定的头的扩展名
+            </summary>
+            <param name="records">MetadataRecord列表</param>
+            <param name="data">目标文件的头数据</param>
+            <param name="matchAll">匹配所有</param>
+            <returns>查找到的文件扩展名列表</returns>
+        </member>
+        <member name="T:ThinkerShare.Signature.Extensions.FileExtensionStringExtensions">
+            <summary>
+             文件扩展名称字符串的扩展方法(获取MIME TYPE)
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Extensions.FileExtensionStringExtensions.GetMimeType(System.String)">
+            <summary>
+            为MIME字符串添加扩展方法
+            </summary>
+            <param name="extention">文件的扩展名(字符串,含有.或者不含有点)</param>
+            <returns>MIME TYPE字符串</returns>
+        </member>
+        <member name="T:ThinkerShare.Signature.Extensions.FileHeaderStringExtensions">
+            <summary>
+            文件头字符串库总
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Extensions.FileHeaderStringExtensions.ConvertToBytes(System.String)">
+            <summary>
+            将文件头字符串表示转换为其实际二进制表示
+            </summary>
+            <param name="header">文件头的ASCII表示(使用空格分隔)</param>
+            <returns>文件头实际字节内容</returns>
+        </member>
+        <member name="T:ThinkerShare.Signature.SignatureExtensions">
+            <summary>
+            Sniffer扩展方法.
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.SignatureExtensions.AddRecords(ThinkerShare.Signature.Signature,System.Collections.Generic.IEnumerable{ThinkerShare.Signature.Record})">
+            <summary>
+            向探测器添加文件头的记录序列.
+            </summary>
+            <param name="sniffer">探测器.</param>
+            <param name="records">文件头记录序列.</param>
+        </member>
+        <member name="T:ThinkerShare.Signature.Node">
+            <summary>
+            节点对象.
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Node.Depth">
+            <summary>
+            Gets or sets 深度.
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Node.Parent">
+            <summary>
+            Gets or sets 父节点.
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Node.Children">
+            <summary>
+            Gets or sets 子节点.
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Node.Extentions">
+            <summary>
+            Gets or sets 扩展名列表.
+            </summary>
+        </member>
+        <member name="T:ThinkerShare.Signature.Offset">
+            <summary>
+            表示一个复杂头记录中的一个偏移节
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Offset.#ctor(System.Int32,System.Int32,System.String)">
+            <summary>
+            构造偏移
+            </summary>
+            <param name="start">偏移开始</param>
+            <param name="count">偏移结束</param>
+            <param name="value">内容(ASCII编码的字节字符串)</param>
+        </member>
+        <member name="P:ThinkerShare.Signature.Offset.Count">
+            <summary>
+            尺寸
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Offset.Start">
+            <summary>
+            起始位置
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Offset.Value">
+            <summary>
+            将头字节当作ASCII编码解析出的字符串
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Offset.op_Equality(ThinkerShare.Signature.Offset,ThinkerShare.Signature.Offset)">
+            <summary>
+            重写==运算符
+            </summary>
+            <param name="left">左运算数</param>
+            <param name="right">右运算数</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:ThinkerShare.Signature.Offset.op_Inequality(ThinkerShare.Signature.Offset,ThinkerShare.Signature.Offset)">
+            <summary>
+            重写不等于运算符
+            </summary>
+            <param name="left">左运算数</param>
+            <param name="right">右运算数</param>
+            <returns>是否不相等</returns>
+        </member>
+        <member name="M:ThinkerShare.Signature.Offset.Equals(System.Object)">
+            <summary>
+            比较相等性
+            </summary>
+            <param name="other">其它对象</param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="M:ThinkerShare.Signature.Offset.Equals(ThinkerShare.Signature.Offset)">
+            <summary>
+            强类型的比较实现
+            </summary>
+            <param name="other">其它对象</param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="M:ThinkerShare.Signature.Offset.GetHashCode">
+            <summary>
+            重写HashCode算法
+            </summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="T:ThinkerShare.Signature.Record">
+            <summary>
+            (原始)文件扩展名到文件头的记录.
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Record.#ctor(System.String,System.String)">
+            <summary>
+            构造器
+            </summary>
+            <param name="extentions">文件扩展名列表</param>
+            <param name="hex">十六进制字符串</param>
+        </member>
+        <member name="M:ThinkerShare.Signature.Record.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            构造器
+            </summary>
+            <param name="extentions">文件扩展名列表</param>
+            <param name="hex">十六进制字符串</param>
+            <param name="offset">文件头偏移</param>
+        </member>
+        <member name="M:ThinkerShare.Signature.Record.#ctor(System.String,System.String,System.String)">
+            <summary>
+            构造器
+            </summary>
+            <param name="extentions">文件扩展名列表</param>
+            <param name="hex">十六进制字符串</param>
+            <param name="description">描述</param>
+        </member>
+        <member name="M:ThinkerShare.Signature.Record.#ctor(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            构造器
+            </summary>
+            <param name="extentions">文件扩展名列表</param>
+            <param name="hex">十六进制字符串</param>
+            <param name="offset">偏移</param>
+            <param name="description">描述</param>
+        </member>
+        <member name="P:ThinkerShare.Signature.Record.Common">
+            <summary>
+            常用的文件类型
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Record.Unfrequent">
+            <summary>
+            不常用的文件类型
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Record.Hex">
+            <summary>
+            十六进制字符串
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Record.Offset">
+            <summary>
+            偏移(需要补齐的任意前缀字节数)
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Record.Extentions">
+            <summary>
+            文件扩展名列表
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Record.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Record.IsComplex">
+            <summary>
+            是否是复合映射记录
+            </summary>
+        </member>
+        <member name="T:ThinkerShare.Signature.Signature">
+            <summary>
+            探测器(树结构)
+            Signatures参考: https://en.wikipedia.org/wiki/List_of_file_signatures
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Signature.AddRecord(ThinkerShare.Signature.Record)">
+            <summary>
+            添加记录作为新映射
+            </summary>
+            <param name="record">记录</param>
+        </member>
+        <member name="M:ThinkerShare.Signature.Signature.AddRecord(System.Byte[],System.String[])">
+            <summary>
+            添加新的头和扩展名映射
+            </summary>
+            <param name="data">文件头</param>
+            <param name="extentions">文件扩展名列表</param>
+        </member>
+        <member name="M:ThinkerShare.Signature.Signature.Match(System.Byte[],System.Boolean)">
+            <summary>
+            查找文件头的扩展名
+            </summary>
+            <param name="data">文件头</param>
+            <param name="matchComplex">是否匹配查找全部的库总名</param>
+            <returns>匹配的文件扩展结果列表</returns>
+        </member>
+    </members>
+</doc>

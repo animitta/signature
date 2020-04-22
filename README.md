@@ -27,12 +27,12 @@ The following is a simple usage example, please refer [Signature Documentation](
 
 + Obtaining the factual file format of a file
 ```CSharp
-var sniffer = new Sniffer();
-sniffer.Populate(Record.Common);
-sniffer.Populate(Record.Unfrequent);
+var signature = new Signature();
+signature.AddRecords(Record.Common);
+signature.AddRecords(Record.Unfrequent);
 
 var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
-List<string> result = sniffer.Match(head);
+List<string> result = signature.Match(head);
 //Result: ["jpg","jpeg"]
 ```
 
