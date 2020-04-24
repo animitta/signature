@@ -8,7 +8,7 @@ namespace ThinkerShare.Signature.Extensions
     /// </summary>
     public static class StringExtensions
     {
-        private static readonly Dictionary<string, string> _mimeTypeMap = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        private static readonly Dictionary<string, string> _mimeTypeMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "323", "text/h323" },
             { "3dmf", "x-world/x-3dmf" },
@@ -584,21 +584,21 @@ namespace ThinkerShare.Signature.Extensions
         /// <summary>
         /// 获取文件扩展名对应的MIME TYPE字符串
         /// </summary>
-        /// <param name="extention">文件的扩展名(可以带有.或者不带有)</param>
-        /// <returns>MIME TYPE字符串或application/octet-stream(未知)</returns>
-        public static string GetMimeType(this string extention)
+        /// <param name="extension">文件的扩展名(可以带有.或者不带有)</param>
+        /// <returns>MIME TYPE字符串或application/octet-stream(未知文件扩展名)</returns>
+        public static string GetMimeType(this string extension)
         {
-            if (string.IsNullOrEmpty(extention))
+            if (string.IsNullOrEmpty(extension))
             {
-                throw new ArgumentNullException(nameof(extention));
+                throw new ArgumentNullException(nameof(extension));
             }
 
-            if (extention[0] == '.')
+            if (extension[0] == '.')
             {
-                extention = extention.Substring(1);
+                extension = extension.Substring(1);
             }
 
-            if (_mimeTypeMap.TryGetValue(extention, out string mimeType))
+            if (_mimeTypeMap.TryGetValue(extension, out string mimeType))
             {
                 return mimeType;
             }

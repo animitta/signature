@@ -28,7 +28,7 @@
             全部的请求头偏移
             </summary>
         </member>
-        <member name="P:ThinkerShare.Signature.ComplexRecord.Extentions">
+        <member name="P:ThinkerShare.Signature.ComplexRecord.Extensions">
             <summary>
             文件扩展名集合(一个文件可能对应多个文件扩展名)
             </summary>
@@ -70,8 +70,8 @@
             <summary>
             获取文件扩展名对应的MIME TYPE字符串
             </summary>
-            <param name="extention">文件的扩展名(可以带有.或者不带有)</param>
-            <returns>MIME TYPE字符串或application/octet-stream(未知)</returns>
+            <param name="extension">文件的扩展名(可以带有.或者不带有)</param>
+            <returns>MIME TYPE字符串或application/octet-stream(未知文件扩展名)</returns>
         </member>
         <member name="T:ThinkerShare.Signature.Node">
             <summary>
@@ -88,7 +88,7 @@
             父节点
             </summary>
         </member>
-        <member name="P:ThinkerShare.Signature.Node.Extentions">
+        <member name="P:ThinkerShare.Signature.Node.Extensions">
             <summary>
             扩展名列表
             </summary>
@@ -103,12 +103,13 @@
             复杂文件头记录中的偏移
             </summary>
         </member>
-        <member name="M:ThinkerShare.Signature.Offset.#ctor(System.Int32,System.String)">
+        <member name="M:ThinkerShare.Signature.Offset.#ctor(System.String[],System.Int32,System.Int32)">
             <summary>
             构造器
             </summary>
-            <param name="start">偏移开始位置</param>
-            <param name="value">将头字节当作ASCII编码解析出的字符串</param>
+            <param name="sections">头数据分节</param>
+            <param name="start">偏移起始索引</param>
+            <param name="count">偏移内容长度</param>
         </member>
         <member name="P:ThinkerShare.Signature.Offset.Start">
             <summary>
@@ -163,14 +164,14 @@
         </member>
         <member name="T:ThinkerShare.Signature.Record">
             <summary>
-            简单文件头记录
+            文件头记录
             </summary>
         </member>
         <member name="M:ThinkerShare.Signature.Record.#ctor(System.String,System.String,System.Int32,System.String)">
             <summary>
             构造器
             </summary>
-            <param name="extentions">文件扩展名列表</param>
+            <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
             <param name="offset">偏移</param>
             <param name="description">描述</param>
@@ -195,14 +196,14 @@
             偏移(需要补齐的任意前缀字节数)
             </summary>
         </member>
-        <member name="P:ThinkerShare.Signature.Record.Extentions">
+        <member name="P:ThinkerShare.Signature.Record.Extensions">
             <summary>
             文件扩展名列表
             </summary>
         </member>
         <member name="P:ThinkerShare.Signature.Record.Description">
             <summary>
-            描述
+            文件类型记录描述
             </summary>
         </member>
         <member name="P:ThinkerShare.Signature.Record.IsComplex">
@@ -214,7 +215,7 @@
             <summary>
             创建Record记录
             </summary>
-            <param name="extentions">文件扩展名列表</param>
+            <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
             <returns>Record记录</returns>
         </member>
@@ -222,16 +223,16 @@
             <summary>
             创建Record记录
             </summary>
-            <param name="extentions">文件扩展名列表</param>
+            <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
             <param name="offset">文件头偏移</param>
             <returns>Record记录</returns>
         </member>
         <member name="M:ThinkerShare.Signature.Record.Create(System.String,System.String,System.String)">
             <summary>
-            构造器
+            创建Record记录
             </summary>
-            <param name="extentions">文件扩展名列表</param>
+            <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
             <param name="description">描述</param>
             <returns>Record记录</returns>
@@ -240,7 +241,7 @@
             <summary>
             创建Record记录
             </summary>
-            <param name="extentions">文件扩展名列表</param>
+            <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
             <param name="offset">文件头偏移</param>
             <param name="description">描述</param>

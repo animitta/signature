@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using ThinkerShare.Signature.Extensions;
 
 namespace ThinkerShare.Signature
 {
@@ -30,7 +29,7 @@ namespace ThinkerShare.Signature
             }
 
             Offsets = new List<Offset>(4);
-            Extentions = base.Extentions.Split(',', ' ').ToList();
+            Extensions = base.Extensions.Split(',', ' ').ToList();
 
             // 将文件头字符串表示补齐
             if (offset > 0)
@@ -49,7 +48,7 @@ namespace ThinkerShare.Signature
                     if (!previousIsArbitraryByte)
                     {
                         // 最后字符不是问题标记
-                        Offsets.Add(BuilderOffset(bytesStringHeader, start, i - start));
+                        Offsets.Add(new Offset(bytesStringHeader, start, i - start));
                     }
 
                     break;
@@ -59,7 +58,7 @@ namespace ThinkerShare.Signature
                 {
                     if (!previousIsArbitraryByte)
                     {
-                        Offsets.Add(BuilderOffset(bytesStringHeader, start, i - start));
+                        Offsets.Add(new Offset(bytesStringHeader, start, i - start));
                     }
 
                     previousIsArbitraryByte = true;
@@ -76,7 +75,7 @@ namespace ThinkerShare.Signature
                 }
             }
 
-            string Repeat(string source, int count, char seprator)
+            static string Repeat(string source, int count, char seprator)
             {
                 var builder = StringBuilder;
                 builder.Clear();
@@ -86,7 +85,6 @@ namespace ThinkerShare.Signature
                 }
 
                 var result = builder.ToString();
-                builder.Clear();
                 return result;
             }
         }
@@ -119,7 +117,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 文件扩展名集合(一个文件可能对应多个文件扩展名)
         /// </summary>
-        public new List<string> Extentions { get; set; }
+        public new List<string> Extensions { get; set; }
 
         /// <summary>
         /// 文件内容是否匹配当前的元数据
@@ -135,20 +133,14 @@ namespace ThinkerShare.Signature
                     return false;
                 }
 
-                var value = Encoding.ASCII.GetString(data, offset.Start, offset.Count);
-                if (!string.Equals(offset.Value, value, StringComparison.Ordinal))
+                var realValue = data.AsSpan().Slice(offset.Start, offset.Count);
+                if (!realValue.SequenceEqual(offset.Value.AsSpan()))
                 {
                     return false;
                 }
             }
 
             return true;
-        }
-
-        private Offset BuilderOffset(string[] bytesStringHeader, int start, int count)
-        {// 将16进制的字符序列转换为内存表示（FF->转换为单字节255）
-            var buffer = string.Join(",", bytesStringHeader, start, count).ParseBytes();
-            return new Offset(start, Encoding.ASCII.GetString(buffer));
         }
     }
 }

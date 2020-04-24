@@ -21,7 +21,7 @@ namespace ThinkerShare.Signature.Extensions
             {
                 if (record.Match(data))
                 {
-                    extentionStore.AddRange(record.Extentions);
+                    extentionStore.AddRange(record.Extensions);
                     if (!matchAll)
                     {
                         break;

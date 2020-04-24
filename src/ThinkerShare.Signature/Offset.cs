@@ -1,4 +1,6 @@
-﻿namespace ThinkerShare.Signature
+﻿using System;
+
+namespace ThinkerShare.Signature
 {
     /// <summary>
     /// 复杂文件头记录中的偏移
@@ -8,12 +10,17 @@
         /// <summary>
         /// 构造器
         /// </summary>
-        /// <param name="start">偏移开始位置</param>
-        /// <param name="value">将头字节当作ASCII编码解析出的字符串</param>
-        public Offset(int start, string value)
+        /// <param name="sections">头数据分节</param>
+        /// <param name="start">偏移起始索引</param>
+        /// <param name="count">偏移内容长度</param>
+        public Offset(string[] sections, int start, int count)
         {
             Start = start;
-            Value = value;
+            Value = new byte[count];
+            for (var i = 0; count > i; ++i)
+            {
+                Value[i] = Convert.ToByte(sections[start + i], 16);
+            }
         }
 
         /// <summary>
@@ -24,12 +31,12 @@
         /// <summary>
         /// 将头字节当作ASCII编码解析出的字符串
         /// </summary>
-        public string Value { get; }
+        public byte[] Value { get; }
 
         /// <summary>
         /// 偏移匹配尺寸
         /// </summary>
-        public int Count => Value?.Length ?? 0;
+        public int Count => Value.Length;
 
         /// <summary>
         /// 重写==运算符

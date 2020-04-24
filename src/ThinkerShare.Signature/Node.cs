@@ -20,7 +20,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 扩展名列表
         /// </summary>
-        public List<string> Extentions { get; set; }
+        public List<string> Extensions { get; set; }
 
         /// <summary>
         /// 子节点集合

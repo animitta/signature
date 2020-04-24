@@ -3,22 +3,22 @@
 namespace ThinkerShare.Signature
 {
     /// <summary>
-    /// 简单文件头记录
+    /// 文件头记录
     /// </summary>
     public class Record
     {
         /// <summary>
         /// 构造器
         /// </summary>
-        /// <param name="extentions">文件扩展名列表</param>
+        /// <param name="extensions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
         /// <param name="offset">偏移</param>
         /// <param name="description">描述</param>
-        protected Record(string extentions, string hex, int offset, string description)
+        protected Record(string extensions, string hex, int offset, string description)
         {
             Hex = hex;
             Offset = offset;
-            Extentions = extentions;
+            Extensions = extensions;
             Description = description;
         }
 
@@ -143,10 +143,10 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 文件扩展名列表
         /// </summary>
-        public string Extentions { get; set; }
+        public string Extensions { get; set; }
 
         /// <summary>
-        /// 描述
+        /// 文件类型记录描述
         /// </summary>
         public string Description { get; set; }
 
@@ -161,51 +161,51 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 创建Record记录
         /// </summary>
-        /// <param name="extentions">文件扩展名列表</param>
+        /// <param name="extensions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
         /// <returns>Record记录</returns>
-        public static Record Create(string extentions, string hex)
+        public static Record Create(string extensions, string hex)
         {
-            return Create(extentions, hex, 0, null);
+            return Create(extensions, hex, 0, null);
         }
 
         /// <summary>
         /// 创建Record记录
         /// </summary>
-        /// <param name="extentions">文件扩展名列表</param>
+        /// <param name="extensions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
         /// <param name="offset">文件头偏移</param>
         /// <returns>Record记录</returns>
-        public static Record Create(string extentions, string hex, int offset)
+        public static Record Create(string extensions, string hex, int offset)
         {
-            return Create(extentions, hex, offset, null);
-        }
-
-        /// <summary>
-        /// 构造器
-        /// </summary>
-        /// <param name="extentions">文件扩展名列表</param>
-        /// <param name="hex">十六进制字符串</param>
-        /// <param name="description">描述</param>
-        /// <returns>Record记录</returns>
-        public static Record Create(string extentions, string hex, string description)
-        {
-            return Create(extentions, hex, 0, description);
+            return Create(extensions, hex, offset, null);
         }
 
         /// <summary>
         /// 创建Record记录
         /// </summary>
-        /// <param name="extentions">文件扩展名列表</param>
+        /// <param name="extensions">文件扩展名列表</param>
+        /// <param name="hex">十六进制字符串</param>
+        /// <param name="description">描述</param>
+        /// <returns>Record记录</returns>
+        public static Record Create(string extensions, string hex, string description)
+        {
+            return Create(extensions, hex, 0, description);
+        }
+
+        /// <summary>
+        /// 创建Record记录
+        /// </summary>
+        /// <param name="extensions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
         /// <param name="offset">文件头偏移</param>
         /// <param name="description">描述</param>
         /// <returns>Record记录</returns>
-        public static Record Create(string extentions, string hex, int offset, string description)
+        public static Record Create(string extensions, string hex, int offset, string description)
         {
             return offset > 0 || hex.Contains("?")
-                ? new ComplexRecord(extentions, hex, offset, description)
-                : new Record(extentions, hex, offset, description);
+                ? new ComplexRecord(extensions, hex, offset, description)
+                : new Record(extensions, hex, offset, description);
         }
     }
 }
