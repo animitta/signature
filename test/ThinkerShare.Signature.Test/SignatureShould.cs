@@ -7,15 +7,10 @@ namespace ThinkerShare.Signature.Test
         [Fact]
         public void BeTrueWhenComplexMatch()
         {
-            int k = 10_000_00;
-            while (k > 0)
-            {
-                var complexRecord = Record.Create("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2) as ComplexRecord;
-                var data = new byte[] { 0x11, 0x11, 0x11, 0x22, 0xff, 0xdd, 0x1d, 0x33 };
-                var result = complexRecord.Match(data);
-                Assert.True(result);
-                --k;
-            }
+            var complexRecord = Record.Create("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2) as ComplexRecord;
+            var data = new byte[] { 0x11, 0x11, 0x11, 0x22, 0xff, 0xdd, 0x1d, 0x33 };
+            var result = complexRecord.Match(data);
+            Assert.True(result);
         }
 
         [Fact]

@@ -8,7 +8,7 @@ namespace ThinkerShare.Signature
     /// <summary>
     /// 复杂文件头记录
     /// </summary>
-    public class ComplexRecord : Record
+    internal class ComplexRecord : Record
     {
         [ThreadStatic]
         private static readonly WeakReference<StringBuilder> _stringBuilder = new WeakReference<StringBuilder>(null);
@@ -18,10 +18,10 @@ namespace ThinkerShare.Signature
         /// </summary>
         /// <param name="extentions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
-        /// <param name="offset">偏移</param>
+        /// <param name="offsetSize">偏移</param>
         /// <param name="description">描述</param>
-        internal ComplexRecord(string extentions, string hex, int offset, string description)
-            : base(extentions, hex, offset, description)
+        internal ComplexRecord(string extentions, string hex, int offsetSize, string description)
+            : base(extentions, hex, offsetSize, description)
         {
             if (!IsComplex)
             {
@@ -32,33 +32,28 @@ namespace ThinkerShare.Signature
             Extensions = base.Extensions.Split(',', ' ').ToList();
 
             // 将文件头字符串表示补齐
-            if (offset > 0)
-            {
-                hex = Repeat("??", offset, ',') + hex;
-            }
-
             var start = 0;
             var previousIsArbitraryByte = true;
-            var bytesStringHeader = hex.Split(',', ' ');
-            for (var i = 0; bytesStringHeader.Length >= i; ++i)
+            var stringHeadlers = hex.Split(',', ' ');
+            for (var i = 0; stringHeadlers.Length >= i; ++i)
             {
-                if (i == bytesStringHeader.Length)
-                {
-                    // 查找到最好一个字节
+                if (i == stringHeadlers.Length)
+                {// 单独处理最好一个字符
                     if (!previousIsArbitraryByte)
-                    {
-                        // 最后字符不是问题标记
-                        Offsets.Add(new Offset(bytesStringHeader, start, i - start));
+                    {// 最后字符不是问题标记
+                        var offset = new Offset(stringHeadlers, start, i - start, offsetSize);
+                        Offsets.Add(offset);
                     }
 
                     break;
                 }
 
-                if (bytesStringHeader[i] == "??")
+                if (stringHeadlers[i] == "??")
                 {
                     if (!previousIsArbitraryByte)
                     {
-                        Offsets.Add(new Offset(bytesStringHeader, start, i - start));
+                        var offset = new Offset(stringHeadlers, start, i - start, offsetSize);
+                        Offsets.Add(offset);
                     }
 
                     previousIsArbitraryByte = true;
@@ -66,45 +61,11 @@ namespace ThinkerShare.Signature
                 else
                 {
                     if (previousIsArbitraryByte)
-                    {
-                        // 这是新的起点
+                    { // 这是新的起点
                         start = i;
                     }
 
                     previousIsArbitraryByte = false;
-                }
-            }
-
-            static string Repeat(string source, int count, char seprator)
-            {
-                var builder = StringBuilder;
-                builder.Clear();
-                for (var i = 0; count > i; ++i)
-                {
-                    builder.Append(source).Append(seprator);
-                }
-
-                var result = builder.ToString();
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// 获取当前线程可用的StringBuilder对象
-        /// </summary>
-        private static StringBuilder StringBuilder
-        {
-            get
-            {
-                if (_stringBuilder.TryGetTarget(out var target))
-                {
-                    return target;
-                }
-                else
-                {
-                    target = new StringBuilder();
-                    _stringBuilder.SetTarget(target);
-                    return target;
                 }
             }
         }

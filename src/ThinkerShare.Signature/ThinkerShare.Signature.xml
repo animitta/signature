@@ -15,13 +15,8 @@
             </summary>
             <param name="extentions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
-            <param name="offset">偏移</param>
+            <param name="offsetSize">偏移</param>
             <param name="description">描述</param>
-        </member>
-        <member name="P:ThinkerShare.Signature.ComplexRecord.StringBuilder">
-            <summary>
-            获取当前线程可用的StringBuilder对象
-            </summary>
         </member>
         <member name="P:ThinkerShare.Signature.ComplexRecord.Offsets">
             <summary>
@@ -103,13 +98,14 @@
             复杂文件头记录中的偏移
             </summary>
         </member>
-        <member name="M:ThinkerShare.Signature.Offset.#ctor(System.String[],System.Int32,System.Int32)">
+        <member name="M:ThinkerShare.Signature.Offset.#ctor(System.String[],System.Int32,System.Int32,System.Int32)">
             <summary>
             构造器
             </summary>
             <param name="sections">头数据分节</param>
             <param name="start">偏移起始索引</param>
             <param name="count">偏移内容长度</param>
+            <param name="offsetSize">当前sections在数据文件中的偏移</param>
         </member>
         <member name="P:ThinkerShare.Signature.Offset.Start">
             <summary>
@@ -173,7 +169,7 @@
             </summary>
             <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
-            <param name="offset">偏移</param>
+            <param name="offsetSize">偏移</param>
             <param name="description">描述</param>
         </member>
         <member name="P:ThinkerShare.Signature.Record.FrequentRecords">
@@ -191,7 +187,7 @@
             十六进制字符串
             </summary>
         </member>
-        <member name="P:ThinkerShare.Signature.Record.Offset">
+        <member name="P:ThinkerShare.Signature.Record.OffsetSize">
             <summary>
             偏移(需要补齐的任意前缀字节数)
             </summary>
@@ -225,7 +221,7 @@
             </summary>
             <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
-            <param name="offset">文件头偏移</param>
+            <param name="offsetSize">文件头偏移</param>
             <returns>Record记录</returns>
         </member>
         <member name="M:ThinkerShare.Signature.Record.Create(System.String,System.String,System.String)">
@@ -243,7 +239,7 @@
             </summary>
             <param name="extensions">文件扩展名列表</param>
             <param name="hex">十六进制字符串</param>
-            <param name="offset">文件头偏移</param>
+            <param name="offsetSize">文件头偏移</param>
             <param name="description">描述</param>
             <returns>Record记录</returns>
         </member>

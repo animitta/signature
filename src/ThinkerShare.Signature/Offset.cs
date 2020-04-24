@@ -13,9 +13,10 @@ namespace ThinkerShare.Signature
         /// <param name="sections">头数据分节</param>
         /// <param name="start">偏移起始索引</param>
         /// <param name="count">偏移内容长度</param>
-        public Offset(string[] sections, int start, int count)
+        /// <param name="offsetSize">当前sections在数据文件中的偏移</param>
+        public Offset(string[] sections, int start, int count, int offsetSize = 0)
         {
-            Start = start;
+            Start = start + offsetSize;
             Value = new byte[count];
             for (var i = 0; count > i; ++i)
             {

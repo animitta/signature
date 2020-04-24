@@ -12,12 +12,12 @@ namespace ThinkerShare.Signature
         /// </summary>
         /// <param name="extensions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
-        /// <param name="offset">偏移</param>
+        /// <param name="offsetSize">偏移</param>
         /// <param name="description">描述</param>
-        protected Record(string extensions, string hex, int offset, string description)
+        protected Record(string extensions, string hex, int offsetSize, string description)
         {
             Hex = hex;
-            Offset = offset;
+            OffsetSize = offsetSize;
             Extensions = extensions;
             Description = description;
         }
@@ -138,7 +138,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 偏移(需要补齐的任意前缀字节数)
         /// </summary>
-        public int Offset { get; set; }
+        public int OffsetSize { get; set; }
 
         /// <summary>
         /// 文件扩展名列表
@@ -155,7 +155,7 @@ namespace ThinkerShare.Signature
         /// </summary>
         public bool IsComplex
         {
-            get => Offset > 0 || Hex.Contains("?");
+            get => OffsetSize > 0 || Hex.Contains("?");
         }
 
         /// <summary>
@@ -174,11 +174,11 @@ namespace ThinkerShare.Signature
         /// </summary>
         /// <param name="extensions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
-        /// <param name="offset">文件头偏移</param>
+        /// <param name="offsetSize">文件头偏移</param>
         /// <returns>Record记录</returns>
-        public static Record Create(string extensions, string hex, int offset)
+        public static Record Create(string extensions, string hex, int offsetSize)
         {
-            return Create(extensions, hex, offset, null);
+            return Create(extensions, hex, offsetSize, null);
         }
 
         /// <summary>
@@ -198,14 +198,14 @@ namespace ThinkerShare.Signature
         /// </summary>
         /// <param name="extensions">文件扩展名列表</param>
         /// <param name="hex">十六进制字符串</param>
-        /// <param name="offset">文件头偏移</param>
+        /// <param name="offsetSize">文件头偏移</param>
         /// <param name="description">描述</param>
         /// <returns>Record记录</returns>
-        public static Record Create(string extensions, string hex, int offset, string description)
+        public static Record Create(string extensions, string hex, int offsetSize, string description)
         {
-            return offset > 0 || hex.Contains("?")
-                ? new ComplexRecord(extensions, hex, offset, description)
-                : new Record(extensions, hex, offset, description);
+            return offsetSize > 0 || hex.Contains("?")
+                ? new ComplexRecord(extensions, hex, offsetSize, description)
+                : new Record(extensions, hex, offsetSize, description);
         }
     }
 }
