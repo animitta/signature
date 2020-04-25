@@ -36,7 +36,7 @@ signature.AddRecords(Record.FrequentRecords);
 signature.AddRecords(Record.UnfrequentRecords);
 
 var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
-List<string> result = signature.Match(head);
+var result = signature.Match(head);
 //结果: ["jpg","jpeg"]
 ```
 
