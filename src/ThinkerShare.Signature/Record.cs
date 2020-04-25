@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ThinkerShare.Signature
 {
@@ -7,6 +8,11 @@ namespace ThinkerShare.Signature
     /// </summary>
     public class Record
     {
+        /// <summary>
+        /// 文件头记录的字节序列字符串中允许的分隔符列表
+        /// </summary>
+        protected static readonly char[] Separator = { ' ', ',' };
+
         /// <summary>
         /// 构造器
         /// </summary>
@@ -18,14 +24,14 @@ namespace ThinkerShare.Signature
         {
             Hex = hex;
             OffsetSize = offsetSize;
-            Extensions = extensions;
             Description = description;
+            Extensions = extensions.Split(Separator);
         }
 
         /// <summary>
         /// 常用的文件类型
         /// </summary>
-        public static List<Record> FrequentRecords => new List<Record>
+        public static IReadOnlyList<Record> FrequentRecords => new List<Record>
         {
             Create("asf wma wmv", "30 26 B2 75 8E 66 CF 11 A6 D9 00 AA 00 62 CE 6C"),
             Create("ogg oga ogv", "4F 67 67 53"),
@@ -72,7 +78,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 不常用的文件类型
         /// </summary>
-        public static List<Record> UnfrequentRecords => new List<Record>
+        public static IReadOnlyList<Record> UnfrequentRecords => new List<Record>
         {
             Create("bin", "53 50 30 31"),
             Create("bac", "42 41 43 4B 4D 49 4B 45 44 49 53 4B"),
@@ -131,31 +137,55 @@ namespace ThinkerShare.Signature
         };
 
         /// <summary>
-        /// 十六进制字符串
+        /// 文件头记录字节序列16进制字符串(非标准)
         /// </summary>
-        public string Hex { get; set; }
+        public string Hex { get; }
 
         /// <summary>
         /// 偏移(需要补齐的任意前缀字节数)
         /// </summary>
-        public int OffsetSize { get; set; }
+        public int OffsetSize { get; }
 
         /// <summary>
-        /// 文件扩展名列表
+        /// 文件扩展名序列
         /// </summary>
-        public string Extensions { get; set; }
+        public IReadOnlyList<string> Extensions { get; set; }
 
         /// <summary>
         /// 文件类型记录描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; }
 
         /// <summary>
         /// 是否是复合映射记录
         /// </summary>
         public bool IsComplex
         {
-            get => OffsetSize > 0 || Hex.Contains("?");
+            get => OffsetSize > 0 || Hex.Contains('?');
+        }
+
+        /// <summary>
+        /// 将文件头字符串表示转换为其实际二进制表示
+        /// </summary>
+        /// <returns>文件头实际字节内容</returns>
+        internal byte[] HexBytes
+        {
+            get
+            {
+                if (IsComplex)
+                {
+                    throw new InvalidCastException();
+                }
+
+                var array = Hex.Split(Record.Separator, StringSplitOptions.RemoveEmptyEntries);
+                var byteArray = new byte[array.Length];
+                for (var i = 0; array.Length > i; i++)
+                {
+                    byteArray[i] = Convert.ToByte(array[i], 16);
+                }
+
+                return byteArray;
+            }
         }
 
         /// <summary>
@@ -203,7 +233,7 @@ namespace ThinkerShare.Signature
         /// <returns>Record记录</returns>
         public static Record Create(string extensions, string hex, int offsetSize, string description)
         {
-            return offsetSize > 0 || hex.Contains("?")
+            return offsetSize > 0 || hex.Contains('?')
                 ? new ComplexRecord(extensions, hex, offsetSize, description)
                 : new Record(extensions, hex, offsetSize, description);
         }

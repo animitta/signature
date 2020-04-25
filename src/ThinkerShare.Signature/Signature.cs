@@ -11,22 +11,22 @@ namespace ThinkerShare.Signature
     /// </summary>
     public class Signature
     {
-        private readonly List<ComplexRecord> _metadatas = new List<ComplexRecord>(10);
-        private readonly Node _rootNode = new Node() { Depth = -1, Children = new SortedList<byte, Node>(128) };
+        private readonly List<ComplexRecord> _complexRecords = new List<ComplexRecord>(16);
+        private readonly Node _rootNode = new Node() { Depth = -1, Children = new SortedList<byte, Node>(256) };
 
         /// <summary>
-        /// 添加记录作为新映射
+        /// 添加文件头记录
         /// </summary>
-        /// <param name="record">记录</param>
+        /// <param name="record">文件头记录</param>
         public void AddRecord(Record record)
         {
             if (record is ComplexRecord complexRecord)
             {
-                _metadatas.Add(complexRecord);
+                _complexRecords.Add(complexRecord);
             }
             else
             {
-                AddRecord(record.Hex.ParseBytes(), record.Extensions.Split(',', ' '));
+                AddRecord(record.HexBytes, record.Extensions);
             }
         }
 
@@ -34,10 +34,10 @@ namespace ThinkerShare.Signature
         /// 添加新的头和扩展名映射
         /// </summary>
         /// <param name="data">文件头</param>
-        /// <param name="extentions">文件扩展名列表</param>
-        public void AddRecord(byte[] data, string[] extentions)
+        /// <param name="extensions">文件扩展名列表</param>
+        public void AddRecord(IReadOnlyList<byte> data, IEnumerable<string> extensions)
         {
-            AddRecord(data, _rootNode, extentions, 0);
+            BuildResolver(data, _rootNode, extensions, 0);
         }
 
         /// <summary>
@@ -52,33 +52,33 @@ namespace ThinkerShare.Signature
             }
         }
 
-        private void AddRecord(byte[] data, Node parent, string[] extentions, int depth)
+        private static void BuildResolver(IReadOnlyList<byte> data, Node parent, IEnumerable<string> extensions, int depth)
         {
-            parent.Children ??= new SortedList<byte, Node>((int)(128 / Math.Pow(2, depth)));
-
-            Node currentNode;
-            if (!parent.Children.ContainsKey(data[depth]))
+            while (true)
             {
-                // 简单头可以添加到当前层(还没有被值占领)
-                currentNode = new Node { Depth = depth, Parent = parent };
-                parent.Children.Add(data[depth], currentNode);
-            }
-            else
-            {
-                currentNode = parent.Children[data[depth]];
-            }
+                parent.Children ??= new SortedList<byte, Node>((int)(128 / Math.Pow(2, depth)));
 
-            // 最后一个字节,放入到扩展中
-            if (depth == (data.Length - 1))
-            {
-                // 已经是文件头最后一个字节,则当前文件头映射必须就在此层
-                // 为此类型的头添加文件扩展名
-                currentNode.Extensions ??= new List<string>(4);
-                currentNode.Extensions.AddRange(extentions);
-                return;
-            }
+                Node currentNode;
+                if (!parent.Children.ContainsKey(data[depth]))
+                { // 简单头可以添加到当前层(还没有被值占领)
+                    currentNode = new Node { Depth = depth, Parent = parent };
+                    parent.Children.Add(data[depth], currentNode);
+                }
+                else
+                {
+                    currentNode = parent.Children[data[depth]];
+                }
 
-            AddRecord(data, currentNode, extentions, depth + 1);
+                if (depth == (data.Count - 1))
+                { // 最后一个字节, 则需要将文件扩展名添加到文件头匹配的集合中
+                    currentNode.Extensions ??= new List<string>(4);
+                    currentNode.Extensions.AddRange(extensions);
+                    return;
+                }
+
+                parent = currentNode;
+                depth += 1;
+            }
         }
 
         /// <summary>
@@ -87,52 +87,53 @@ namespace ThinkerShare.Signature
         /// <param name="data">文件头</param>
         /// <param name="matchAll">是否匹配查找全部的库总名</param>
         /// <returns>匹配的文件扩展结果列表</returns>
-        public List<string> Match(byte[] data, bool matchAll = false)
+        public IReadOnlyList<string> Match(ReadOnlySpan<byte> data, bool matchAll = false)
         {
-            var extentionStore = new List<string>(4);
-            Match(data, 0, _rootNode, extentionStore, matchAll);
-
-            if (matchAll || !extentionStore.Any())
-            {
-                // 单一匹配失败或者接受复杂匹配
-                extentionStore.AddRange(_metadatas.Match(data, matchAll));
+            var extensions = Match(data, 0, _rootNode, matchAll);
+            if (matchAll || !extensions.Any())
+            { // 简单文件头记录匹配失败
+                extensions.AddRange(_complexRecords.Match(data, matchAll));
             }
 
-            return extentionStore.Distinct().ToList();
+            return extensions.Distinct().ToList();
         }
 
-        private void Match(byte[] data, int depth, Node node, List<string> extentionStore, bool matchAll)
+        private static List<string> Match(ReadOnlySpan<byte> data, int depth, Node node, bool matchAll)
         {
-            if (data.Length == depth)
+            var extensions = new List<string>(4);
+            while (true)
             {
-                // 找到尽头了
-                return;
-            }
+                if (data.Length == depth)
+                { // 找到尽头了
+                    return extensions;
+                }
 
-            node.Children.TryGetValue(data[depth], out Node current);
-            if (current != null)
-            {
-                if (current.Extensions != null)
+                node.Children.TryGetValue(data[depth], out Node current);
+                if (current != null)
                 {
-                    extentionStore.AddRange(current.Extensions);
-                    if (!matchAll)
-                    {// 不再匹配(可能提前中断)
-                        return;
+                    if (current.Extensions != null && current.Extensions.Count > 0)
+                    {
+                        extensions.AddRange(current.Extensions);
+                        if (!matchAll)
+                        { // 不允许多重匹配,提前结束后续匹配
+                            return extensions;
+                        }
                     }
                 }
-            }
-            else
-            {// 找不到
-                return;
-            }
+                else
+                { // 当前字符串未找到，则表示文件头类型未知
+                    return extensions;
+                }
 
-            if (current.Children != null)
-            {// 尝试再下一层继续找
-                Match(data, depth + 1, current, extentionStore, matchAll);
-            }
-            else
-            {
-                return;
+                if (current.Children != null)
+                { // 尝试再下一层继续找
+                    depth += 1;
+                    node = current;
+                }
+                else
+                {
+                    return extensions;
+                }
             }
         }
     }

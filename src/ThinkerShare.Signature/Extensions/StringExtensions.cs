@@ -8,7 +8,7 @@ namespace ThinkerShare.Signature.Extensions
     /// </summary>
     public static class StringExtensions
     {
-        private static readonly Dictionary<string, string> _mimeTypeMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        private static readonly Dictionary<string, string> MimeTypeMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "323", "text/h323" },
             { "3dmf", "x-world/x-3dmf" },
@@ -565,24 +565,7 @@ namespace ThinkerShare.Signature.Extensions
         };
 
         /// <summary>
-        /// 将文件头string表示转换为其实际二进制表示
-        /// </summary>
-        /// <param name="header">文件头的ASCII string表示(使用空格或,分隔)</param>
-        /// <returns>文件头实际字节内容</returns>
-        internal static byte[] ParseBytes(this string header)
-        {
-            var array = header.Split(',', ' ');
-            var byteArray = new byte[array.Length];
-            for (var i = 0; array.Length > i; i++)
-            {
-                byteArray[i] = Convert.ToByte(array[i], 16);
-            }
-
-            return byteArray;
-        }
-
-        /// <summary>
-        /// 获取文件扩展名对应的MIME TYPE字符串
+        /// 获取文件扩展名对应的MIME TYPE
         /// </summary>
         /// <param name="extension">文件的扩展名(可以带有.或者不带有)</param>
         /// <returns>MIME TYPE字符串或application/octet-stream(未知文件扩展名)</returns>
@@ -598,14 +581,7 @@ namespace ThinkerShare.Signature.Extensions
                 extension = extension.Substring(1);
             }
 
-            if (_mimeTypeMap.TryGetValue(extension, out string mimeType))
-            {
-                return mimeType;
-            }
-            else
-            {
-                return "application/octet-stream";
-            }
+            return MimeTypeMap.TryGetValue(extension, out string mimeType) ? mimeType : "application/octet-stream";
         }
     }
 }

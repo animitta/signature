@@ -1,23 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ThinkerShare.Signature
 {
     /// <summary>
     /// 复杂文件头记录中的偏移
     /// </summary>
-    internal struct Offset
+    internal readonly struct Offset
     {
         /// <summary>
         /// 构造器
         /// </summary>
-        /// <param name="sections">头数据分节</param>
+        /// <param name="sections">分节头数据</param>
         /// <param name="start">偏移起始索引</param>
         /// <param name="count">偏移内容长度</param>
         /// <param name="offsetSize">当前sections在数据文件中的偏移</param>
-        public Offset(string[] sections, int start, int count, int offsetSize = 0)
+        internal Offset(IReadOnlyList<string> sections, int start, int count, int offsetSize = 0)
         {
             Start = start + offsetSize;
             Value = new byte[count];
+
             for (var i = 0; count > i; ++i)
             {
                 Value[i] = Convert.ToByte(sections[start + i], 16);
@@ -25,33 +27,33 @@ namespace ThinkerShare.Signature
         }
 
         /// <summary>
-        /// 偏移开始位置
+        /// 偏移起始点索引
         /// </summary>
-        public int Start { get; }
+        internal int Start { get; }
 
         /// <summary>
-        /// 将头字节当作ASCII编码解析出的字符串
+        /// 字节序列
         /// </summary>
-        public byte[] Value { get; }
+        internal byte[] Value { get; }
 
         /// <summary>
-        /// 偏移匹配尺寸
+        /// 偏移字节数
         /// </summary>
-        public int Count => Value.Length;
+        internal int Count => Value.Length;
 
         /// <summary>
         /// 重写==运算符
         /// </summary>
         /// <param name="left">左运算数</param>
         /// <param name="right">右运算数</param>
-        /// <returns>结果</returns>
+        /// <returns>是否相等</returns>
         public static bool operator ==(Offset left, Offset right)
         {
             return left.Equals(right);
         }
 
         /// <summary>
-        /// 重写不等于运算符
+        /// 重写!=运算符
         /// </summary>
         /// <param name="left">左运算数</param>
         /// <param name="right">右运算数</param>
@@ -66,9 +68,9 @@ namespace ThinkerShare.Signature
         /// </summary>
         /// <param name="other">其它对象</param>
         /// <returns>是否相等</returns>
-        public bool Equals(Offset other)
+        internal bool Equals(Offset other)
         {
-            return Start == other.Start && Value == other.Value;
+            return Start == other.Start && Value.AsSpan().SequenceEqual(other.Value);
         }
 
         /// <summary>
@@ -78,17 +80,16 @@ namespace ThinkerShare.Signature
         /// <returns>是否相等</returns>
         public override bool Equals(object other)
         {
-            var value = other as Offset?;
-            return value.HasValue ? Equals(value.Value) : false;
+            return other is Offset value && Equals(value);
         }
 
         /// <summary>
-        /// 重写HashCode算法
+        /// 重写哈希算法
         /// </summary>
         /// <returns>hash code</returns>
         public override int GetHashCode()
         {
-            return Start & Value.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }
