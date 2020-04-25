@@ -571,7 +571,7 @@ namespace ThinkerShare.Signature.Extensions
         /// <returns>MIME TYPE字符串或application/octet-stream(未知文件扩展名)</returns>
         public static string GetMimeType(this string extension)
         {
-            if (string.IsNullOrEmpty(extension))
+            if (string.IsNullOrWhiteSpace(extension))
             {
                 throw new ArgumentNullException(nameof(extension));
             }

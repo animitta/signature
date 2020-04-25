@@ -8,7 +8,7 @@ Usually we can assume the type of file uploaded by the user by the file extensio
 but many times the file extension name is untrusted.  
 Therefore, I developed this library,  
 which is a general library that reads the file header to obtain the  
-true type and MIME TYPE of the file(only depend `.NET Standard 2.0`).
+true type and MIME TYPE of the file(only depend `.NET Standard 2.1`).
 
 ## Install
 * `Install-Package`
@@ -24,6 +24,13 @@ $ dotnet add package ThinkerShare.Signature
 ## Usage
 The following is a simple usage example, please refer [Signature Documentation](https://thinkershare.com/project/signature) to the details
 
++ Obtaining MIME TYPE for file extension string
+```CSharp
+var extension = ".jpg";
+var result = extension.GetMimeType();
+//Result: "image/jpeg"
+```
+
 + Obtaining the factual file format of a file
 ```CSharp
 var signature = new Signature();
@@ -38,7 +45,7 @@ List<string> result = signature.Match(head);
 ## Badge
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/Document-Signature-orange)](https://thinkershare.com/project/signature)
-[![Signature](https://img.shields.io/badge/NuGet-0.2.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
+[![Signature](https://img.shields.io/badge/NuGet-1.0.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## Maintainers
 [@rocketRobin](https://github.com/rocketRobin)  

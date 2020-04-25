@@ -3,13 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.0</Version>
+    <Version>1.0.0</Version>
     <Authors>thinkershare</Authors>
     <Company />
     <Product>Signature</Product>
-    <Description>A general library for obtaining the factual file format and MIME type of the file by reading the file header.</Description>
+    <Description>A general library for obtaining the factual file format.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://thinkershare.com/project/signature</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/thinkershare/Owner-Signature</PackageProjectUrl>
     <RepositoryUrl>https://github.com/thinkershare/Owner-Signature</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageIcon>Logo.png</PackageIcon>

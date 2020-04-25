@@ -4,7 +4,7 @@
 ## 背景
 在Web应用开发中,我们接受用户上传的文件,很多时候需要知道用户上传文件的类型,  
 通常我们可以通过文件的扩展名来假定用户上传的文件类型,但很多时候用户的文件扩展名称是不可信任的,  
-因此我开发了这个库,这是一个通过读取文件头从而获取文件真实类型和`MIME TYPE`的通用库(本库只依赖于`.NET Standard 2.0`).
+因此我开发了这个库,这是一个通过读取文件头从而获取文件真实类型和`MIME TYPE`的通用库(本库只依赖于`.NET Standard 2.1`).
 
 ## 安装
 如果使用Visual Studio开发项目,你可以使用NuGet命令`Install-Package`安装项目,  
@@ -22,6 +22,13 @@ $ dotnet add package ThinkerShare.Signature
 ## 使用
 下面是简单的使用示例,详情请参考[Signature文档](https://thinkershare.com/project/signature)
 
++ 获取一个文件扩展名字符串对应的MIME TYPE
+```CSharp
+var extension = ".jpg";
+var result = extension.GetMimeType();
+//Result: "image/jpeg"
+```
+
 + 获取一个文件的真实格式
 ```CSharp
 var signature = new Signature();
@@ -36,7 +43,7 @@ List<string> result = signature.Match(head);
 ## 徽标
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/Document-Signature-orange)](https://thinkershare.com/project/signature)
-[![Signature](https://img.shields.io/badge/NuGet-0.2.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
+[![Signature](https://img.shields.io/badge/NuGet-1.0.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## 维护人员
 [@rocketRobin](https://github.com/rocketRobin)  

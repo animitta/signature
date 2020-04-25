@@ -21,13 +21,9 @@ namespace ThinkerShare.Signature.Test
         [Fact]
         public void BeEqualWhenNotUnknownExtension()
         {
-            //var extension = ".kkk";
-            //var result = extension.GetMimeType();
-            //Assert.Equal("application/octet-stream", result);
-
-            //extension = " ";
-            //result = extension.GetMimeType();
-            //Assert.Equal("application/octet-stream", result);
+            const string extension = ".kkk";
+            var result = extension.GetMimeType();
+            Assert.Equal("application/octet-stream", result);
         }
 
         [Fact]
@@ -35,6 +31,10 @@ namespace ThinkerShare.Signature.Test
         {
             var extension = "";
             var exception = Assert.Throws<ArgumentNullException>(() => extension.GetMimeType());
+            Assert.NotNull(exception);
+
+            extension = " ";
+            exception = Assert.Throws<ArgumentNullException>(() => extension.GetMimeType());
             Assert.NotNull(exception);
 
             extension = null;
