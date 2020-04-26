@@ -159,10 +159,7 @@ namespace ThinkerShare.Signature
         /// <summary>
         /// 是否是复合映射记录
         /// </summary>
-        public bool IsComplex
-        {
-            get => OffsetSize > 0 || Hex.Contains('?');
-        }
+        public bool IsComplex => OffsetSize > 0 || Hex.Contains('?');
 
         /// <summary>
         /// 将文件头字符串表示转换为其实际二进制表示
