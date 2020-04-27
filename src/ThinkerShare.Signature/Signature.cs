@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ThinkerShare.Signature.Extensions;
 
 namespace ThinkerShare.Signature
 {
@@ -12,7 +11,7 @@ namespace ThinkerShare.Signature
     public class Signature
     {
         private readonly List<ComplexRecord> _complexRecords = new List<ComplexRecord>(16);
-        private readonly Node _rootNode = new Node() { Depth = -1, Children = new SortedList<byte, Node>(256) };
+        private readonly Node _rootNode = new Node { Children = new SortedList<byte, Node>(256) };
 
         /// <summary>
         /// 添加文件头记录
@@ -61,7 +60,7 @@ namespace ThinkerShare.Signature
                 Node currentNode;
                 if (!parent.Children.ContainsKey(data[depth]))
                 { // 简单头可以添加到当前层(还没有被值占领)
-                    currentNode = new Node { Depth = depth, Parent = parent };
+                    currentNode = new Node();
                     parent.Children.Add(data[depth], currentNode);
                 }
                 else
@@ -91,8 +90,8 @@ namespace ThinkerShare.Signature
         {
             var extensions = Match(data, 0, _rootNode, matchAll);
             if (matchAll || !extensions.Any())
-            { // 简单文件头记录匹配失败
-                extensions.AddRange(_complexRecords.Match(data, matchAll));
+            { // 匹配组合文件头记录
+                extensions.AddRange(ComplexMatch(data, matchAll));
             }
 
             return extensions.Distinct().ToList();
@@ -135,6 +134,27 @@ namespace ThinkerShare.Signature
                     return extensions;
                 }
             }
+        }
+
+        private IEnumerable<string> ComplexMatch(ReadOnlySpan<byte> data, bool matchAll = false)
+        {
+            var extensions = new List<string>(4);
+            foreach (var record in _complexRecords)
+            {
+                if (!record.Match(data))
+                {
+                    continue;
+                }
+
+                if (!matchAll)
+                {
+                    return record.Extensions;
+                }
+
+                extensions.AddRange(record.Extensions);
+            }
+
+            return extensions;
         }
     }
 }

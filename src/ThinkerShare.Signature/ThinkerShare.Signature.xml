@@ -30,20 +30,6 @@
             <param name="data">文件内容</param>
             <returns>是否匹配</returns>
         </member>
-        <member name="T:ThinkerShare.Signature.Extensions.ComplexRecordExtensions">
-            <summary>
-            复杂文件头记录扩展
-            </summary>
-        </member>
-        <member name="M:ThinkerShare.Signature.Extensions.ComplexRecordExtensions.Match(System.Collections.Generic.IEnumerable{ThinkerShare.Signature.ComplexRecord},System.ReadOnlySpan{System.Byte},System.Boolean)">
-            <summary>
-            从ComplexRecord列表中匹配文件扩展名
-            </summary>
-            <param name="records">ComplexRecord列表</param>
-            <param name="data">目标文件内容</param>
-            <param name="matchAll">是否允许匹配多个格式的文件头记录</param>
-            <returns>查找到的文件扩展名序列</returns>
-        </member>
         <member name="T:ThinkerShare.Signature.Extensions.StringExtensions">
             <summary>
             字符串扩展方法
@@ -59,16 +45,6 @@
         <member name="T:ThinkerShare.Signature.Node">
             <summary>
             解析树节点
-            </summary>
-        </member>
-        <member name="P:ThinkerShare.Signature.Node.Depth">
-            <summary>
-            节点的深度
-            </summary>
-        </member>
-        <member name="P:ThinkerShare.Signature.Node.Parent">
-            <summary>
-            父节点
             </summary>
         </member>
         <member name="P:ThinkerShare.Signature.Node.Extensions">
@@ -109,42 +85,6 @@
             <summary>
             偏移字节数
             </summary>
-        </member>
-        <member name="M:ThinkerShare.Signature.Offset.op_Equality(ThinkerShare.Signature.Offset,ThinkerShare.Signature.Offset)">
-            <summary>
-            重写==运算符
-            </summary>
-            <param name="left">左运算数</param>
-            <param name="right">右运算数</param>
-            <returns>是否相等</returns>
-        </member>
-        <member name="M:ThinkerShare.Signature.Offset.op_Inequality(ThinkerShare.Signature.Offset,ThinkerShare.Signature.Offset)">
-            <summary>
-            重写!=运算符
-            </summary>
-            <param name="left">左运算数</param>
-            <param name="right">右运算数</param>
-            <returns>是否不相等</returns>
-        </member>
-        <member name="M:ThinkerShare.Signature.Offset.Equals(ThinkerShare.Signature.Offset)">
-            <summary>
-            强类型的比较实现
-            </summary>
-            <param name="other">其它对象</param>
-            <returns>是否相等</returns>
-        </member>
-        <member name="M:ThinkerShare.Signature.Offset.Equals(System.Object)">
-            <summary>
-            比较相等性
-            </summary>
-            <param name="other">其它对象</param>
-            <returns>是否相等</returns>
-        </member>
-        <member name="M:ThinkerShare.Signature.Offset.GetHashCode">
-            <summary>
-            重写哈希算法
-            </summary>
-            <returns>hash code</returns>
         </member>
         <member name="T:ThinkerShare.Signature.Record">
             <summary>

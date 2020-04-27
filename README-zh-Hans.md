@@ -43,7 +43,7 @@ var result = signature.Match(head);
 ## 徽标
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/Document-Signature-orange)](https://thinkershare.com/project/signature)
-[![Signature](https://img.shields.io/badge/NuGet-1.0.0-blue)](https://www.nuget.org/packages/thinkershare.signature)
+[![Signature](https://img.shields.io/badge/NuGet-1.0.1-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## 维护人员
 [@rocketRobin](https://github.com/rocketRobin)  

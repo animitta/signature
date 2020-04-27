@@ -5,15 +5,6 @@ namespace ThinkerShare.Signature.Test
     public class SignatureShould
     {
         [Fact]
-        public void BeTrueWhenComplexMatch()
-        {
-            var complexRecord = Record.Create("a,b,c", "0x11 0x22 ?? ?? ?? 0x33", 2) as ComplexRecord;
-            var data = new byte[] { 0x11, 0x11, 0x11, 0x22, 0xff, 0xdd, 0x1d, 0x33 };
-            var result = complexRecord?.Match(data) ?? false;
-            Assert.True(result);
-        }
-
-        [Fact]
         public void BeContainsWhenMatch()
         {
             var signature = new Signature();
@@ -39,6 +30,23 @@ namespace ThinkerShare.Signature.Test
             Assert.Contains("a", result);
             Assert.Contains("b", result);
             Assert.Contains("c", result);
+        }
+
+        [Fact]
+        public void BeContainsWhenMultipleComplexMatch()
+        {
+            var signature = new Signature();
+            var record1 = Record.Create("z", "0x11 0x22 ?? ?? ?? 0x33", 2);
+            var record2 = Record.Create("k", "0x11 0x22 ?? ?? 0x1d 0x33", 2);
+
+            signature.AddRecord(record1);
+            signature.AddRecord(record2);
+
+            var data = new byte[] { 0x11, 0x11, 0x11, 0x22, 0xff, 0xdd, 0x1d, 0x33 };
+            var result = signature.Match(data, true);
+
+            Assert.Contains("z", result);
+            Assert.Contains("k", result);
         }
 
         [Fact]
@@ -125,9 +133,10 @@ namespace ThinkerShare.Signature.Test
             signature.AddRecords(Record.UnfrequentRecords);
 
             var dataZip = new byte[] { 0x50, 0x4b, 0x03, 0x04 };
-            var dataZipEmpty = new byte[] { 0x50, 0x4b, 0x05, 0x06 };
             var resultZip = signature.Match(dataZip);
-            var resultZipEmpty = signature.Match(dataZipEmpty);
+
+            var dataZipEmpty = new byte[] { 0x50, 0x4b, 0x05, 0x06 };
+            var resultZipEmpty = signature.Match(dataZipEmpty, true);
 
             Assert.Contains("apk", resultZip);
             Assert.Contains("zip", resultZip);
@@ -191,6 +200,18 @@ namespace ThinkerShare.Signature.Test
 
             Assert.Contains("gif", results);
             Assert.DoesNotContain("mpg", results);
+        }
+
+        [Fact]
+        public void BeEmptyWhenHeaderDataIsIncomplete()
+        {
+            var signature = new Signature();
+            signature.AddRecords(Record.FrequentRecords);
+
+            var data = new byte[] { 0X30, 0X26 };
+            var results = signature.Match(data, false);
+
+            Assert.Empty(results);
         }
     }
 }

@@ -40,56 +40,5 @@ namespace ThinkerShare.Signature
         /// 偏移字节数
         /// </summary>
         internal int Count => Value.Length;
-
-        /// <summary>
-        /// 重写==运算符
-        /// </summary>
-        /// <param name="left">左运算数</param>
-        /// <param name="right">右运算数</param>
-        /// <returns>是否相等</returns>
-        public static bool operator ==(Offset left, Offset right)
-        {
-            return left.Equals(right);
-        }
-
-        /// <summary>
-        /// 重写!=运算符
-        /// </summary>
-        /// <param name="left">左运算数</param>
-        /// <param name="right">右运算数</param>
-        /// <returns>是否不相等</returns>
-        public static bool operator !=(Offset left, Offset right)
-        {
-            return !(left == right);
-        }
-
-        /// <summary>
-        /// 强类型的比较实现
-        /// </summary>
-        /// <param name="other">其它对象</param>
-        /// <returns>是否相等</returns>
-        internal bool Equals(Offset other)
-        {
-            return Start == other.Start && Value.AsSpan().SequenceEqual(other.Value);
-        }
-
-        /// <summary>
-        /// 比较相等性
-        /// </summary>
-        /// <param name="other">其它对象</param>
-        /// <returns>是否相等</returns>
-        public override bool Equals(object other)
-        {
-            return other is Offset value && Equals(value);
-        }
-
-        /// <summary>
-        /// 重写哈希算法
-        /// </summary>
-        /// <returns>hash code</returns>
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
