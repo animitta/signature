@@ -1,6 +1,6 @@
 using System;
-using Xunit;
 using ThinkerShare.Signature.Extensions;
+using Xunit;
 
 namespace ThinkerShare.Signature.Test
 {
