@@ -26,7 +26,7 @@ $ dotnet add package ThinkerShare.Signature
 ```CSharp
 var extension = ".jpg";
 var result = extension.GetMimeType();
-//Result: "image/jpeg"
+//结果: "image/jpeg"
 ```
 
 + 获取一个文件的真实格式
@@ -46,7 +46,7 @@ var result = signature.Match(head);
 [![Signature](https://img.shields.io/badge/nuget-1.0.1-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## 维护人员
-[@rocketRobin](https://github.com/rocketRobin)  
+[@rocketrobin](https://github.com/rocketrobin)  
 [@thinkershare](https://github.com/thinkershare)
 
 ## 如何贡献
