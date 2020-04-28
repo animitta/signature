@@ -48,7 +48,7 @@ var result = signature.Match(head);
 [![Signature](https://img.shields.io/badge/nuget-1.0.1-blue)](https://www.nuget.org/packages/thinkershare.signature)
 
 ## Maintainers
-[@rocketRobin](https://github.com/rocketRobin)  
+[@rocketrobin](https://github.com/rocketrobin)  
 [@thinkershare](https://github.com/thinkershare)
 
 ## Contributing
