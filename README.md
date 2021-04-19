@@ -42,6 +42,18 @@ var result = signature.Match(head);
 //Result: ["jpg","jpeg"]
 ```
 
++ Obtaining the factual file format of a file(express mode)
+```CSharp
+using ThinkerShare.Signature.Extensions;
+
+var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
+var result = head.GetExtension(head);
+//Result: "jpg"
+
+var result = head.GetExtensions(head);
+//Result: ["jpg","jpeg"]
+```
+
 ## Badge
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/documentation-signature-orange)](https://thinkershare.com/project/signature)

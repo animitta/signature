@@ -40,6 +40,18 @@ var result = signature.Match(head);
 //结果: ["jpg","jpeg"]
 ```
 
++ 获取一个文件的真实格式(快捷模式)
+```CSharp
+using ThinkerShare.Signature.Extensions;
+
+var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
+var result = head.GetExtension(head);
+//结果: "jpg"
+
+var result = head.GetExtensions(head);
+//结果: ["jpg","jpeg"]
+```
+
 ## 徽标
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
 [![Document](https://img.shields.io/badge/documentation-signature-orange)](https://thinkershare.com/project/signature)

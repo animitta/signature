@@ -84,7 +84,7 @@ namespace ThinkerShare.Signature
         /// 查找文件头的扩展名
         /// </summary>
         /// <param name="data">文件头</param>
-        /// <param name="matchAll">是否匹配查找全部的库总名</param>
+        /// <param name="matchAll">是否匹配查找全部的扩展名(如果文件头是复杂类型, 则请设置此值为true)</param>
         /// <returns>匹配的文件扩展结果列表</returns>
         public IReadOnlyList<string> Match(ReadOnlySpan<byte> data, bool matchAll = false)
         {

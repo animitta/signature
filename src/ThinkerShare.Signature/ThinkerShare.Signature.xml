@@ -30,6 +30,32 @@
             <param name="data">文件内容</param>
             <returns>是否匹配</returns>
         </member>
+        <member name="T:ThinkerShare.Signature.Extensions.BytesExtensions">
+            <summary>
+            二进制数据扩展方法
+            </summary>
+        </member>
+        <member name="P:ThinkerShare.Signature.Extensions.BytesExtensions.Signature">
+            <summary>
+            全局Signature(多线程不安全)
+            </summary>
+        </member>
+        <member name="M:ThinkerShare.Signature.Extensions.BytesExtensions.GetExtension(System.Byte[],System.Boolean)">
+            <summary>
+            获取真实文件类型的文件扩展名
+            </summary>
+            <param name="data">文件数据(允许只包含的数据切片)</param>
+            <param name="matchAll">是否启用复杂匹配(如果需要匹配复杂的文件指纹请启用此参数)</param>
+            <returns>扩展扩展名或null</returns>
+        </member>
+        <member name="M:ThinkerShare.Signature.Extensions.BytesExtensions.GetExtensions(System.Byte[],System.Boolean)">
+            <summary>
+            获取真实文件类型的文件扩展名列表
+            </summary>
+            <param name="data">文件数据(允许只包含的数据切片)</param>
+            <param name="matchAll">是否启用复杂匹配(如果需要匹配复杂的文件指纹请启用此参数)</param>
+            <returns>文件扩展名列表</returns>
+        </member>
         <member name="T:ThinkerShare.Signature.Extensions.StringExtensions">
             <summary>
             字符串扩展方法
@@ -212,7 +238,7 @@
             查找文件头的扩展名
             </summary>
             <param name="data">文件头</param>
-            <param name="matchAll">是否匹配查找全部的库总名</param>
+            <param name="matchAll">是否匹配查找全部的扩展名(如果文件头是复杂类型, 则请设置此值为true)</param>
             <returns>匹配的文件扩展结果列表</returns>
         </member>
     </members>
