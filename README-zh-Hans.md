@@ -12,11 +12,11 @@
 
 * `Install-Package`安装
 ```powershell
-PM> Install-Package ThinkerShare.Signature
+PM> Install-Package Signature
 ```
 * `dotnet.exe`安装
 ```bash
-$ dotnet add package ThinkerShare.Signature
+$ dotnet add package Signature
 ```
 
 ## 使用
@@ -42,7 +42,7 @@ var result = signature.Match(head);
 
 + 获取一个文件的真实格式(快捷模式)
 ```CSharp
-using ThinkerShare.Signature.Extensions;
+using Thinkershare.Signature.Extensions;
 
 var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
 var result = head.GetExtension(head);
@@ -53,7 +53,7 @@ var result = head.GetExtensions(head);
 ```
 
 ## 徽标
-[![MIT License](https://img.shields.io/badge/license-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-green)](https://github.com/thinkershare/signature/blob/main/LICENSE)
 [![Document](https://img.shields.io/badge/documentation-signature-orange)](https://thinkershare.com/project/signature)
 [![Signature](https://img.shields.io/badge/nuget-1.0.1-blue)](https://www.nuget.org/packages/thinkershare.signature)
 

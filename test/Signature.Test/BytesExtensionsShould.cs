@@ -1,7 +1,7 @@
 using Xunit;
-using ThinkerShare.Signature.Extensions;
+using Thinkershare.Signature.Extensions;
 
-namespace ThinkerShare.Signature.Test
+namespace Thinkershare.Signature.Test
 {
     public class BytesExtensionsShould
     {

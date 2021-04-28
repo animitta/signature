@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ThinkerShare.Signature
+namespace Thinkershare.Signature
 {
     /// <summary>
     /// 文件头记录

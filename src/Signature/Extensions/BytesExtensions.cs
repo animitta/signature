@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace ThinkerShare.Signature.Extensions
+namespace Thinkershare.Signature.Extensions
 {
     /// <summary>
     /// 二进制数据扩展方法

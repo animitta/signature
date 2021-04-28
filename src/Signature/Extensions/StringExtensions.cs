@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ThinkerShare.Signature.Extensions
+namespace Thinkershare.Signature.Extensions
 {
     /// <summary>
     /// 字符串扩展方法

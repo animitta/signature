@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ThinkerShare.Signature
+namespace Thinkershare.Signature
 {
     /// <summary>
     /// 解析树节点

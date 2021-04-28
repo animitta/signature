@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace ThinkerShare.Signature.Test
+namespace Thinkershare.Signature.Test
 {
     public class ComplexMatchShould
     {

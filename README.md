@@ -13,12 +13,12 @@ true type and MIME TYPE of the file(only depend `.NET Standard 2.1`).
 ## Install
 * `Install-Package`
 ```powershell
-PM> Install-Package ThinkerShare.Signature
+PM> Install-Package Signature
 ```
 
 * `dotnet.exe`
 ```bash
-$ dotnet add package ThinkerShare.Signature
+$ dotnet add package Signature
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ var result = signature.Match(head);
 
 + Obtaining the factual file format of a file(express mode)
 ```CSharp
-using ThinkerShare.Signature.Extensions;
+using Thinkershare.Signature.Extensions;
 
 var head = new byte[] { 0xff, 0xd8, 0xff, 0xdb };
 var result = head.GetExtension(head);
@@ -55,7 +55,7 @@ var result = head.GetExtensions(head);
 ```
 
 ## Badge
-[![MIT License](https://img.shields.io/badge/license-MIT-green)](https://github.com/thinkershare/owner-signature/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-green)](https://github.com/thinkershare/signature/blob/main/LICENSE)
 [![Document](https://img.shields.io/badge/documentation-signature-orange)](https://thinkershare.com/project/signature)
 [![Signature](https://img.shields.io/badge/nuget-1.0.1-blue)](https://www.nuget.org/packages/thinkershare.signature)
 

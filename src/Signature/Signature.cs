@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ThinkerShare.Signature
+namespace Thinkershare.Signature
 {
     /// <summary>
     /// 探测器(树结构)
