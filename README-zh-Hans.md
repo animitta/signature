@@ -12,11 +12,11 @@
 
 * `Install-Package`安装
 ```powershell
-PM> Install-Package Signature
+PM> Install-Package Thinkershare.Signature
 ```
 * `dotnet.exe`安装
 ```bash
-$ dotnet add package Signature
+$ dotnet add package Thinkershare.Signature
 ```
 
 ## 使用

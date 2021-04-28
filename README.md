@@ -13,12 +13,12 @@ true type and MIME TYPE of the file(only depend `.NET Standard 2.1`).
 ## Install
 * `Install-Package`
 ```powershell
-PM> Install-Package Signature
+PM> Install-Package Thinkershare.Signature
 ```
 
 * `dotnet.exe`
 ```bash
-$ dotnet add package Signature
+$ dotnet add package Thinkershare.Signature
 ```
 
 ## Usage
