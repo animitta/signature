@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Signature.Test")]
+[assembly: InternalsVisibleTo("Thinkershare.Signature.Test")]

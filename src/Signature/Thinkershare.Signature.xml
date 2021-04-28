@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Signature</name>
+        <name>Thinkershare.Signature</name>
     </assembly>
     <members>
         <member name="T:Thinkershare.Signature.ComplexRecord">
