@@ -59,7 +59,7 @@ namespace Thinkershare.Signature
             Create("gif", "47 49 46 38 39 61"),
             Create("exe", "4D 5A"),
             Create("tar", "75 73 74 61 72", 257),
-            Create("mkv mka mks mk3d webm", "1A 45 DF A3"),
+            Create("webm mkv mka mks mk3d", "1A 45 DF A3"),
             Create("gz tar.gz", "1F 8B"),
             Create("xz tar.xz", "FD 37 7A 58 5A 00 00"),
             Create("7z", "37 7A BC AF 27 1C"),
@@ -71,6 +71,7 @@ namespace Thinkershare.Signature
             Create("swf", "43 57 53"),
             Create("swf", "46 57 53"),
             Create("deb", "21 3C 61 72 63 68 3E"),
+            Create("webp", "52 49 46 46 ?? ?? ?? ?? 57 45 42 50"),
             Create("jpg,jpeg", "FF D8 FF E0 ?? ?? 4A 46 49 46 00 01"),
             Create("jpg,jpeg", "FF D8 FF E1 ?? ?? 45 78 69 66 00 00"),
         };
