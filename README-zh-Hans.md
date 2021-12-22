@@ -1,10 +1,15 @@
 # Signature
 
 中文 | [English](README.md)
+
 ## 背景
 在Web应用开发中,我们接受用户上传的文件,很多时候需要知道用户上传文件的类型,  
 通常我们可以通过文件的扩展名来假定用户上传的文件类型,但很多时候用户的文件扩展名称是不可信任的,  
 因此我开发了这个库,这是一个通过读取文件头从而获取文件真实类型和`MIME TYPE`的通用库(本库只依赖于`.NET Standard 2.1`).
+
+## 参考
+* [Garykessler File_sigs](https://www.garykessler.net/library/file_sigs.html)
+* [List of file signatures](https://en.wikipedia.org/wiki/List_of_file_signatures)
 
 ## 安装
 如果使用Visual Studio开发项目,你可以使用NuGet命令`Install-Package`安装项目,  
