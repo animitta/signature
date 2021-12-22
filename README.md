@@ -1,6 +1,7 @@
 # Signature
 
 English | [中文](README-zh-Hans.md)
+
 ## Background
 In web application, we accept files uploaded by users,  
 and many times need to know the type of files uploaded by users.  
@@ -9,6 +10,10 @@ but many times the file extension name is untrusted.
 Therefore, I developed this library,  
 which is a general library that reads the file header to obtain the  
 true type and MIME TYPE of the file(only depend `.NET Standard 2.1`).
+
+## References
+* [Garykessler File_sigs](https://www.garykessler.net/library/file_sigs.html)
+* [List of file signatures](https://en.wikipedia.org/wiki/List_of_file_signatures)
 
 ## Install
 * `Install-Package`
