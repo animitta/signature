@@ -12,6 +12,8 @@ which is a general library that reads the file header to obtain the
 true type and MIME TYPE of the file(only depend `.NET Standard 2.1`).
 
 ## References
+
+* [MIME](https://www.iana.org/assignments/media-types/media-types.xhtml)
 * [Garykessler File_sigs](https://www.garykessler.net/library/file_sigs.html)
 * [List of file signatures](https://en.wikipedia.org/wiki/List_of_file_signatures)
 
